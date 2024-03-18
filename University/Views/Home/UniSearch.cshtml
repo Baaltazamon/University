@@ -1,0 +1,117 @@
+﻿@model UniModel
+@{
+    ViewData["Title"] = "UniSearch";
+}
+
+<div class="vlt-site-wrapper__inner">
+
+    <!--Main-->
+    <main class="vlt-main">
+        <!--Page Title-->
+        <section class="jarallax">
+            <img class="jarallax-img" src="~/assets/img/attachment-11.png" alt="">
+            <div class="vlt-gap-170"></div>
+            <div class="container">
+                <!--Large Heading-->
+                <h1 class="vlt-large-heading text-center" style="color:#fff;">
+                    Поиск учебного заведения<span>.</span>
+                </h1>
+            </div>
+            <div class="vlt-gap-170"></div>
+        </section>
+        <!--Content-->
+        <section>
+            <div class="vlt-gap-60"></div>
+            <div class="container">
+                <div class="justify-content-center">
+                    <form method="get" asp-controller="Home" asp-action="UniSearch">
+                        <div>
+                            <label asp-for="Filters.Name">Название</label>
+                            <input class="input-group-text" asp-for="Filters.Name" placeholder="Поиск по названию" />
+                        </div>
+                        <hr />
+                        <div>
+                            <label asp-for="Filters.CityId">Город</label>
+                            <select class="tp-layer-selectable" asp-for="Filters.CityId" asp-items="@(new SelectList(Model.Citys, "Id", "Name"))">
+                                <option value="@null">Выбрать город</option>
+                            </select>
+                        </div>
+                        <hr/>
+                        <div>
+                            <label asp-for="Filters.ProgramIds">Специальности</label>
+                            <select class="tp-layer-selectable" asp-for="Filters.ProgramIds" asp-items="@(new SelectList(Model.Specializations, "Id", "Name"))" multiple>
+                            </select>
+                        </div>
+                        <hr/>
+                        <div class="vlt-cubeportfolio-filters vlt-display-1" id="vlt-filter-blog-01">
+                            <div class="cbp-filter-item cbp-filter-item-active" data-filter="*">Все</div>
+                            @foreach (var item in Model.Types)
+                            {
+                                <div class="cbp-filter-item" data-filter=".@item.Id">@item.Name</div>
+                            }
+                        </div>
+                        <div class="align-self-center">
+                            <button type="submit" class="vlt-btn vlt-btn--primary vlt-btn--lg vlt-btn--effect">
+                                <div class="tp-caption" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['150','150','150','140']" data-width="none" data-height="none" data-whitespace="nowrap" data-type="text" data-responsive_offset="off" data-responsive="off" data-frames="[{&quot;delay&quot;:2100,&quot;speed&quot;:600,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;y:50px;opacity:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:300,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;opacity:0;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;}]" data-textalign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 9; white-space: nowrap; font-size: 20px; line-height: 22px; font-weight: 400; color: #ffffff; letter-spacing: 0px;font-family:Open Sans;">
+                                    <span>Найти</span>
+                                </div>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+
+                <div id="vlt-grid-blog-01">
+                    <!--UniSearch Post-->
+                    @if (Model.EducationalOrganizations.Count > 0)
+                    {
+                        @foreach (var item in Model.EducationalOrganizations)
+                        {
+                            <article class="vlt-post @item.TypeId vlt-post--style-masonry cbp-item">
+                                <div class="vlt-post-thumbnail clearfix">
+                                    @if (item.Image is null)
+                                    {
+                                        <div class="vlt-fit-image" style="--size-md: 67.5%; --size-sm: 67.5%;"><img src="~/assets/img/attachment-12.jpg" alt=""></div>
+
+                                        <a class="vlt-post-thumbnail__link" href="single-post-01.html"></a>
+                                    }
+                                    else
+                                    {
+                                        <div class="vlt-fit-image" style="--size-md: 67.5%; --size-sm: 67.5%;"><img src="~/assets/img/vuz/@item.Image" alt=""></div>
+
+                                        <a class="vlt-post-thumbnail__link" href="single-post-01.html"></a>
+                                    }
+
+                                </div>
+                                <div class="vlt-post-content">
+                                    <header class="vlt-post-header">
+                                        <h3 class="vlt-post-title"><a href="single-post-01.html">@item.Name</a></h3>
+                                        <div class="vlt-post-meta vlt-display-1">
+                                            <span>@Model.Citys.FirstOrDefault(c=> c.Id == item.CityId)?.Name</span><span>@item.Address</span>
+                                        </div>
+                                    </header>
+                                    <div class="vlt-post-excerpt">
+                                        <p>
+                                            @(item.Description.Length > 100 ? item.Description.Substring(0, 100) + "..." : item.Description)
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                        }
+                    }
+                    else
+                    {
+
+                        <h3 class="vlt-large-heading text-center" style="color:black">Ничего не нашли :(</h3>
+
+                    }
+
+                </div>
+                <div class="vlt-gap-70"></div>
+            </div>
+            <div class="vlt-gap-120"></div>
+        </section>
+    </main>
+    <!--Back to Top--><a class="vlt-btn vlt-btn--secondary vlt-btn--effect vlt-btn--go-top hidden" href="#"><span><i class="leedo-chevron-up"></i></span></a>
+</div>
+

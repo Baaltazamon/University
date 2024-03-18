@@ -1,0 +1,122 @@
+﻿@using Data.Dto
+<!DOCTYPE html>
+<html class="no-js vlt-is--home vlt-is--header-default vlt-is--footer-style-1 vlt-is--footer-fixed vlt-is--lowercase-mode" lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>AcademiaHunt</title>
+	<meta name="description" content="AcademiaHunt">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!--Favicon-->
+	<link rel="icon" type="image/png" href="~/assets/img/root/favicon.png">
+	<!--Framework-->
+	<link rel="stylesheet" href="~/assets/css/framework/bootstrap.min.css">
+	<!--Plugins-->
+	<link rel="stylesheet" href="~/assets/css/vlt-plugins.css">
+	<!--RevSlider-->
+	<link rel="stylesheet" href="~/assets/revolution/css/settings.css">
+	<!--Fonts-->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800%7CMuli:400,400i,600%7CPlayfair+Display:700i" rel="stylesheet">
+	<!--Icons-->
+	<link rel="stylesheet" href="~/assets/fonts/fontawesome/font-awesome.min.css">
+	<link rel="stylesheet" href="~/assets/fonts/leedo/style.css">
+	<!--Style-->
+	<link rel="stylesheet" href="~/assets/css/vlt-style.min.css">
+	<!--Custom-->
+	<link rel="stylesheet" href="~/assets/css/custom.css">
+</head>
+<body>
+	<!--Preloader-->
+	<div class="vlt-site-preloader">
+		<div class="image"><img src="~/assets/img/root/loader.gif" alt=""></div>
+	</div>
+	<div class="vlt-site-wrapper">
+		<!--Site Wrapper Inner-->
+		<div class="vlt-site-wrapper__inner">
+			<!--Header-->
+            <!--Main-->
+			<div class="d-none d-lg-block">
+				<header class="vlt-header vlt-header--fullscreen">
+					<div class="vlt-navbar vlt-navbar--main vlt-navbar--transparent vlt-navbar--sticky vlt-navbar--hide-on-scroll vlt-navbar--white-text-on-top">
+						<div class="container">
+							<div class="vlt-navbar-inner">
+								<div class="vlt-navbar-inner--left">
+									<!--Logo--><a class="vlt-navbar-logo" asp-controller="Home" asp-action="Index"><img class="black" src="~/assets/img/root/logo--default-black.png" alt="" style="height: 18px;"><img class="white" src="~/assets/img/root/logo--footer-white.png" alt="" style="height: 18px;"></a>
+								</div>
+								<div class="vlt-navbar-inner--right">
+                                    @await Html.PartialAsync("Partials/_signs")
+								</div>
+							</div>
+						</div>
+					</div>
+				</header>
+				<div class="vlt-fullscreen-navigation-holder">
+					<div class="vlt-navbar vlt-navbar--white-text-on-top">
+						<div class="container">
+							<div class="vlt-navbar-inner">
+								<div class="vlt-navbar-inner--left">
+									<!--Logo--><a class="vlt-navbar-logo" asp-controller="Home" asp-action="Index"><img class="black" src="~/assets/img/root/logo--default-black.png" alt="" style="height: 18px;"><img class="white" src="~/assets/img/root/logo--footer-white.png" alt="" style="height: 18px;"></a>
+								</div>
+								<div class="vlt-navbar-inner--right"><a class="vlt-menu-burger vlt-menu-burger--opened" href="#" id="vlt-fullscreen-menu-close"><span class="line line-one"><span></span></span><span class="line line-two"><span></span></span><span class="line line-three"><span></span></span></a></div>
+							</div>
+						</div>
+					</div>
+					<!--Navigation-->
+					<nav class="vlt-fullscreen-navigation">
+						<!--Menu-->
+						<ul class="sf-menu">
+							<li class="menu-item-has-children two-columns">
+								<a asp-controller="Home" asp-action="Index"><span>Главная</span></a>
+							</li>
+							<li class="menu-item-has-children">
+								<a href="#"><span>Программы обучения</span></a>
+							</li>
+							<li class="menu-item-has-children">
+								<a asp-controller="Home" asp-action="UniSearch" asp-route-filter="@(new EduOrgFilter())"><span>Учебные заведения</span></a>
+							</li>
+							<li class="menu-item-has-children">
+								<a href="#"><span>О нас</span></a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+			@RenderBody()
+			<!--Back to Top--><a class="vlt-btn vlt-btn--secondary vlt-btn--effect vlt-btn--go-top hidden" href="#"><span><i class="leedo-chevron-up"></i></span></a>
+		</div>
+		<!--Footer-->
+		<footer class="vlt-footer vlt-footer--style-1 vlt-footer--fixed">
+			<div class="container">
+				<div class="text-center">
+					<!--Logo--><a class="vlt-footer-logo" asp-controller="Home" asp-action="Index"><img src="~/assets/img/root/logo--footer-white.png" alt="" style="height: 62px;"></a>
+					<!--Copyright-->
+					<div class="vlt-footer-copyright">
+						<p>&copy; 2024 Все права защищены.</p>
+					</div>
+					<!--Socials-->
+					<div class="vlt-footer-socials vlt-footer-socials--style-1"><a class="vlt-social-icon vlt-social-icon--style-2" href="#" target="_blank"><i class="fa fa-facebook"></i></a><a class="vlt-social-icon vlt-social-icon--style-2" href="#" target="_blank"><i class="fa fa-twitter"></i></a><a class="vlt-social-icon vlt-social-icon--style-2" href="#" target="_blank"><i class="fa fa-github"></i></a><a class="vlt-social-icon vlt-social-icon--style-2" href="#" target="_blank"><i class="fa fa-behance"></i></a><a class="vlt-social-icon vlt-social-icon--style-2" href="#" target="_blank"><i class="fa fa-pinterest"></i></a><a class="vlt-social-icon vlt-social-icon--style-2" href="#" target="_blank"><i class="fa fa-instagram"></i></a></div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<!--Libs-->
+	<script src="~/assets/scripts/vlt-plugins.min.js"></script>
+	<script src="~/assets/scripts/vlt-helpers.js"></script>
+	<script src="~/assets/scripts/vlt-controllers.min.js"></script>
+	<!--RevSlider-->
+	<script src="~/assets/revolution/js/jquery.themepunch.tools.min.js"></script>
+	<script src="~/assets/revolution/js/jquery.themepunch.revolution.min.js"></script>
+	<!--RevSlider Extensions-->
+	<script src="~/assets/revolution/js/extensions/revolution.extension.actions.min.js"></script>
+	<script src="~/assets/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
+	<script src="~/assets/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
+	<script src="~/assets/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+	<script src="~/assets/revolution/js/extensions/revolution.extension.migration.min.js"></script>
+	<script src="~/assets/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+	<script src="~/assets/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
+	<script src="~/assets/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+	<script src="~/assets/revolution/js/extensions/revolution.extension.video.min.js"></script>
+</body>
+
+</html>

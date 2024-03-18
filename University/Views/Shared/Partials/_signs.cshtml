@@ -1,0 +1,16 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <div class="d-flex align-items-center">
+        <a class="vlt-menu-burger" href="#" id="vlt-fullscreen-menu-open">
+            <span class="line line-one"><span></span></span><span class="line line-two"><span></span></span><span class="line line-three"><span></span></span>
+        </a><a class="vlt-menu-shop-cart" href="#"><i class="leedo-user-shape"></i><span>out</span></a>
+    </div>
+}
+else
+{
+    <div class="d-flex align-items-center">
+        <a class="vlt-menu-burger" href="#" id="vlt-fullscreen-menu-open">
+            <span class="line line-one"><span></span></span><span class="line line-two"><span></span></span><span class="line line-three"><span></span></span>
+        </a><a class="vlt-menu-shop-cart" href="#"><i class="leedo-password"></i><span>in</span></a>
+    </div>
+}
