@@ -21,7 +21,7 @@ namespace Data.Context
             base.OnModelCreating(builder);
 
             // Добавление дополнительной конфигурации, если необходимо
-            builder.Entity<Roles>().HasData(new List<Roles>()
+            builder.Entity<Roles>().HasData(new List<Roles>
             {
                 new Roles
                 {
@@ -32,13 +32,9 @@ namespace Data.Context
                 {
                     Id = "2",
                     Name = "Модератор"
-                },
-                new Roles
-                {
-                    Id = "3",
-                    Name = "Пользователь"
                 }
             });
+
         }
     }
 }

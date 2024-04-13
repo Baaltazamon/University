@@ -348,4 +348,10 @@ namespace Data.Context
         [Column("LastName")]
         public string LastName { get; set; }
     }
+
+    
+    public class UserRoles : IdentityUserRole<string>
+    {
+
+    }
 }

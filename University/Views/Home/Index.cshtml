@@ -1,10 +1,15 @@
-﻿@{
+﻿@using Data.Context
+@model IndexModel
+@{
     ViewData["Title"] = "Home Page";
+    var list1 = Model.EducationPrograms.Take(5).ToList();
+    var list2 = Model.EducationPrograms.Skip(5).Take(5).ToList();
+    var list3 = Model.EducationPrograms.Skip(4).Take(4).ToList();
 }
 
 
 <main class="vlt-main">
-<!--Fixed Awards-->
+    <!--Fixed Awards-->
 
     <div class="rev_slider_wrapper fullscreen-container" id="rev_slider_4_1_wrapper" data-alias="landing" data-source="gallery" style="background:transparent;padding:0px;">
         <!-- START REVOLUTION SLIDER 5.4.8.1 fullscreen mode-->
@@ -99,45 +104,27 @@
         <div class="vlt-gap-70"></div>
         <div class="container">
             <div class="row">
-                <div class="col-md">
-                    <!--Animation Block-->
-                    <div class="vlt-animation-block" data-aos="fade" data-aos-delay="0">
-                        <!--Partner Logo-->
-                        <div class="vlt-partner-logo" style="opacity:1; height:50px;"><img src="~/assets/img/landing/plugins-01.png" alt="HTML5" style="height:40px;"></div>
+
+                <!--Animation Block-->
+                @for (var i = 0; i < Model.Images.Count; i++)
+                {
+                    <div class="col-md">
+                        <div class="vlt-animation-block" data-aos="fade" data-aos-delay="@(i * 100)">
+                            <!--Partner Logo-->
+                            @if (Model.Images[i] is null)
+                            {
+                                <div class="vlt-partner-logo" style="opacity:1; height:50px;"><img src="~/assets/img/spec/what.png" alt="???" style="height:140px;"></div>
+                            }
+                            else
+                            {
+                                <div class="vlt-partner-logo" style="opacity:1; height:50px;"><img src="~/assets/img/spec/@(Model.Images[i])" alt="HTML5" style="height:140px;"></div>
+                            }
+                        </div>
+                        <div class="vlt-gap-40--sm"></div>
                     </div>
-                    <div class="vlt-gap-40--sm"></div>
-                </div>
-                <div class="col-md">
-                    <!--Animation Block-->
-                    <div class="vlt-animation-block" data-aos="fade" data-aos-delay="100">
-                        <!--Partner Logo-->
-                        <div class="vlt-partner-logo" style="opacity:1; height:50px;"><img src="~/assets/img/landing/plugins-02.png" alt="jQuery" style="height:30px;"></div>
-                    </div>
-                    <div class="vlt-gap-40--sm"></div>
-                </div>
-                <div class="col-md">
-                    <!--Animation Block-->
-                    <div class="vlt-animation-block" data-aos="fade" data-aos-delay="200">
-                        <!--Partner Logo-->
-                        <div class="vlt-partner-logo" style="opacity:1; height:50px;"><img src="~/assets/img/landing/plugins-03.png" alt="CSS3" style="height:38px;"></div>
-                    </div>
-                    <div class="vlt-gap-40--sm"></div>
-                </div>
-                <div class="col-md">
-                    <!--Animation Block-->
-                    <div class="vlt-animation-block" data-aos="fade" data-aos-delay="300">
-                        <!--Partner Logo-->
-                        <div class="vlt-partner-logo" style="opacity:1; height:50px;"><img src="~/assets/img/landing/plugins-04.png" alt="Revolution Slider" style="height:28px;"></div>
-                    </div>
-                    <div class="vlt-gap-40--sm"></div>
-                </div>
-                <div class="col-md">
-                    <!--Animation Block-->
-                    <div class="vlt-animation-block" data-aos="fade" data-aos-delay="400">
-                        <!--Partner Logo-->
-                        <div class="vlt-partner-logo" style="opacity:1; height:50px;"><img src="~/assets/img/landing/plugins-05.png" alt="Cube Portfolio" style="height:36px;"></div>
-                    </div>
-                </div>
+
+                }
+
             </div>
         </div>
         <div class="vlt-gap-70"></div>
@@ -151,10 +138,10 @@
                     <!--Section Title-->
                     <div class="vlt-section-title text-center">
                         <h2>
-                            12 Home Pages.
+                            6 предложений
                         </h2>
                         <p>
-                            Leedo includes a set of bold and modern looking home pages which can be use out-of-the-box.
+                            Возможно, среди них есть именно то, что ты давно искал
                         </p>
                     </div>
                     <div class="vlt-gap-70"></div>
@@ -167,216 +154,33 @@
             <!--Particle-->
             <div class="vlt-particle" data-jarallax-element="100 0" style="top: -75px; right: calc(-75px + 15px); max-width: 150px;"><img src="~/assets/img/root/particle-02.png" alt=""></div>
             <div class="row padding-block-parent">
-                <div class="col-md-4">
-                    <div class="padding-block">
-                        <!--Animation Block-->
-                        <div class="vlt-animation-block" data-aos="fade" data-aos-delay="0">
-                            <!--Demo Item-->
-                            <div class="vlt-demo-item">
-                                <div class="vlt-demo-item__image">
-                                    <span class="badge">Top</span><a href="homepage-01.html"><img src="~/assets/img/landing/demo-homepage-01.jpg" alt=""></a>
-                                </div>
-                                <div class="vlt-demo-item__content">
-                                    <h3><span class="vlt-highlight"><a href="homepage-01.html"><span class="number">01.</span>Main Home</a></span></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="vlt-gap-70"></div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="padding-block">
-                        <!--Animation Block-->
-                        <div class="vlt-animation-block" data-aos="fade" data-aos-delay="100">
-                            <!--Demo Item-->
-                            <div class="vlt-demo-item">
-                                <div class="vlt-demo-item__image">
-                                    <a href="homepage-02.html"><img src="~/assets/img/landing/demo-homepage-02.jpg" alt=""></a>
-                                </div>
-                                <div class="vlt-demo-item__content">
-                                    <h3><span class="vlt-highlight"><a href="homepage-02.html"><span class="number">02.</span>Creative Agency</a></span></h3>
+                @for (var i = 0; i < 6; i++)
+                {
+                    <div class="col-md-4">
+                        <div class="padding-block">
+                            <!--Animation Block-->
+                            <div class="vlt-animation-block" data-aos="fade" data-aos-delay="@(i * 100)">
+                                <!--Demo Item-->
+                                <div class="vlt-demo-item">
+                                    <div class="vlt-demo-item__image">
+                                        <span class="badge">Top</span><a asp-controller="Home" asp-action="UniSingle" asp-route-id="@Model.EducationalOrganizations[i].Id"><img src="~/assets/img/vuz/@Model.EducationalOrganizations[i].Image" alt="@Model.EducationalOrganizations[i].Name"></a>
+                                    </div>
+                                    <div class="vlt-demo-item__content">
+                                        <h4><span class="vlt-also-like-posts"><a asp-controller="Home" asp-action="UniSingle" asp-route-id="@Model.EducationalOrganizations[i].Id"><span class="number">@(i+1).</span>@Model.EducationalOrganizations[i].Name</a></span></h4>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="vlt-gap-70"></div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="padding-block">
-                        <!--Animation Block-->
-                        <div class="vlt-animation-block" data-aos="fade" data-aos-delay="200">
-                            <!--Demo Item-->
-                            <div class="vlt-demo-item">
-                                <div class="vlt-demo-item__image">
-                                    <a href="homepage-03.html"><img src="~/assets/img/landing/demo-homepage-03.jpg" alt=""></a>
-                                </div>
-                                <div class="vlt-demo-item__content">
-                                    <h3><span class="vlt-highlight"><a href="homepage-03.html"><span class="number">03.</span>Freelancer Home</a></span></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="vlt-gap-70"></div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="padding-block">
-                        <!--Animation Block-->
-                        <div class="vlt-animation-block" data-aos="fade" data-aos-delay="0">
-                            <!--Demo Item-->
-                            <div class="vlt-demo-item">
-                                <div class="vlt-demo-item__image">
-                                    <a href="homepage-04.html"><img src="~/assets/img/landing/demo-homepage-04.jpg" alt=""></a>
-                                </div>
-                                <div class="vlt-demo-item__content">
-                                    <h3><span class="vlt-highlight"><a href="homepage-04.html"><span class="number">04.</span>Masonry Portfolio</a></span></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="vlt-gap-70"></div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="padding-block">
-                        <!--Animation Block-->
-                        <div class="vlt-animation-block" data-aos="fade" data-aos-delay="100">
-                            <!--Demo Item-->
-                            <div class="vlt-demo-item">
-                                <div class="vlt-demo-item__image">
-                                    <a href="homepage-05.html"><img src="~/assets/img/landing/demo-homepage-05.jpg" alt=""></a>
-                                </div>
-                                <div class="vlt-demo-item__content">
-                                    <h3><span class="vlt-highlight"><a href="homepage-05.html"><span class="number">05.</span>Digital Studio</a></span></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="vlt-gap-70"></div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="padding-block">
-                        <!--Animation Block-->
-                        <div class="vlt-animation-block" data-aos="fade" data-aos-delay="200">
-                            <!--Demo Item-->
-                            <div class="vlt-demo-item">
-                                <div class="vlt-demo-item__image">
-                                    <a href="homepage-06.html"><img src="~/assets/img/landing/demo-homepage-06.jpg" alt=""></a>
-                                </div>
-                                <div class="vlt-demo-item__content">
-                                    <h3><span class="vlt-highlight"><a href="homepage-06.html"><span class="number">06.</span>Personal Portfolio</a></span></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="vlt-gap-70"></div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="padding-block">
-                        <!--Animation Block-->
-                        <div class="vlt-animation-block" data-aos="fade" data-aos-delay="0">
-                            <!--Demo Item-->
-                            <div class="vlt-demo-item">
-                                <div class="vlt-demo-item__image">
-                                    <a href="homepage-07.html"><img src="~/assets/img/landing/demo-homepage-07.jpg" alt=""></a>
-                                </div>
-                                <div class="vlt-demo-item__content">
-                                    <h3><span class="vlt-highlight"><a href="homepage-07.html"><span class="number">07.</span>Digital Agency</a></span></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="vlt-gap-70"></div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="padding-block">
-                        <!--Animation Block-->
-                        <div class="vlt-animation-block" data-aos="fade" data-aos-delay="100">
-                            <!--Demo Item-->
-                            <div class="vlt-demo-item">
-                                <div class="vlt-demo-item__image">
-                                    <a href="homepage-08.html"><img src="~/assets/img/landing/demo-homepage-08.jpg" alt=""></a>
-                                </div>
-                                <div class="vlt-demo-item__content">
-                                    <h3><span class="vlt-highlight"><a href="homepage-08.html"><span class="number">08.</span>Portfolio Carousel</a></span></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="vlt-gap-70"></div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="padding-block">
-                        <!--Animation Block-->
-                        <div class="vlt-animation-block" data-aos="fade" data-aos-delay="200">
-                            <!--Demo Item-->
-                            <div class="vlt-demo-item">
-                                <div class="vlt-demo-item__image">
-                                    <a href="homepage-09.html"><img src="~/assets/img/landing/demo-homepage-09.jpg" alt=""></a>
-                                </div>
-                                <div class="vlt-demo-item__content">
-                                    <h3><span class="vlt-highlight"><a href="homepage-09.html"><span class="number">09.</span>Hoverable Portfolio</a></span></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="vlt-gap-70"></div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="padding-block">
-                        <!--Animation Block-->
-                        <div class="vlt-animation-block" data-aos="fade" data-aos-delay="0">
-                            <!--Demo Item-->
-                            <div class="vlt-demo-item">
-                                <div class="vlt-demo-item__image">
-                                    <a href="homepage-10.html"><img src="~/assets/img/landing/demo-homepage-10.jpg" alt=""></a>
-                                </div>
-                                <div class="vlt-demo-item__content">
-                                    <h3><span class="vlt-highlight"><a href="homepage-10.html"><span class="number">10.</span>Projects Showcase</a></span></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="vlt-gap-70--sm"></div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="padding-block">
-                        <!--Animation Block-->
-                        <div class="vlt-animation-block" data-aos="fade" data-aos-delay="100">
-                            <!--Demo Item-->
-                            <div class="vlt-demo-item">
-                                <div class="vlt-demo-item__image">
-                                    <a href="homepage-11.html"><img src="~/assets/img/landing/demo-homepage-11.jpg" alt=""></a>
-                                </div>
-                                <div class="vlt-demo-item__content">
-                                    <h3><span class="vlt-highlight"><a href="homepage-11.html"><span class="number">11.</span>Split-Screen Slider</a></span></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="vlt-gap-70--sm"></div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="padding-block">
-                        <!--Animation Block-->
-                        <div class="vlt-animation-block" data-aos="fade" data-aos-delay="200">
-                            <!--Demo Item-->
-                            <div class="vlt-demo-item">
-                                <div class="vlt-demo-item__image">
-                                    <a href="homepage-12.html"><img src="~/assets/img/landing/demo-homepage-12.jpg" alt=""></a>
-                                </div>
-                                <div class="vlt-demo-item__content">
-                                    <h3><span class="vlt-highlight"><a href="homepage-12.html"><span class="number">12.</span>Fullpage Slider</a></span></h3>
-                                </div>
-                            </div>
+                            <div class="vlt-gap-70"></div>
                         </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
         <div class="vlt-gap-120"></div>
     </section>
     <!--Core Features-->
     <section class="jarallax">
-        <img class="jarallax-img" src="~/assets/img/landing/leedo-pages-collage.jpg" alt="">
+        <img class="jarallax-img" src="~/assets/img/vuz/@Model.RandomVuzImage" alt="">
         <div class="jarallax-overlay" style="background-color: rgba(32,17,73,0.9);"></div>
         <div class="vlt-gap-120"></div>
         <div class="container">
@@ -385,15 +189,10 @@
                     <!--Animation Block-->
                     <div class="vlt-animation-block" data-aos="fade" data-aos-delay="0">
                         <ul class="vlt-demo-core-features-list">
-                            <li><i class="fa fa-star-o"></i> Modern, Clean &amp; Bold Design.</li>
-                            <li><i class="fa fa-star-o"></i> HTML5 &amp; CSS3</li>
-                            <li><i class="fa fa-star-o"></i> W3C Validated</li>
-                            <li><i class="fa fa-star-o"></i> 100% Responsive</li>
-                            <li><i class="fa fa-star-o"></i> Built on Bootstrap 4</li>
-                            <li><i class="fa fa-star-o"></i> Cross Browser Compatible</li>
-                            <li><i class="fa fa-star-o"></i> Well Commented Code</li>
-                            <li><i class="fa fa-star-o"></i> Retina Ready</li>
-                            <li><i class="fa fa-star-o"></i> SEO Optimized</li>
+                            @foreach (var item in list1)
+                            {
+                                <li><i class="fa fa-star-o"></i> @item.Name</li>
+                            }
                         </ul>
                     </div>
                     <div class="vlt-gap-15--sm"></div>
@@ -402,15 +201,10 @@
                     <!--Animation Block-->
                     <div class="vlt-animation-block" data-aos="fade" data-aos-delay="100">
                         <ul class="vlt-demo-core-features-list">
-                            <li><i class="fa fa-star-o"></i> 12 Different Home Pages</li>
-                            <li><i class="fa fa-star-o"></i> 4 Different Headers</li>
-                            <li><i class="fa fa-star-o"></i> 5 Different Footers</li>
-                            <li><i class="fa fa-star-o"></i> 50+ HTML Files</li>
-                            <li><i class="fa fa-star-o"></i> Working PHP AJAX Contact Form</li>
-                            <li><i class="fa fa-star-o"></i> Font Awesome Icons</li>
-                            <li><i class="fa fa-star-o"></i> Parallax Background</li>
-                            <li><i class="fa fa-star-o"></i> One Page Funciton</li>
-                            <li><i class="fa fa-star-o"></i> Social Links</li>
+                            @foreach (var item in list2)
+                            {
+                                <li><i class="fa fa-star-o"></i> @item.Name</li>
+                            }
                         </ul>
                     </div>
                     <div class="vlt-gap-15--sm"></div>
@@ -419,15 +213,11 @@
                     <!--Animation Block-->
                     <div class="vlt-animation-block" data-aos="fade" data-aos-delay="200">
                         <ul class="vlt-demo-core-features-list">
-                            <li><i class="fa fa-star-o"></i> Google / Typekit Fonts</li>
-                            <li><i class="fa fa-star-o"></i> Revolution Slider</li>
-                            <li><i class="fa fa-star-o"></i> Overlay Navigation</li>
-                            <li><i class="fa fa-star-o"></i> Professional Support</li>
-                            <li><i class="fa fa-star-o"></i> Fully Customizable</li>
-                            <li><i class="fa fa-star-o"></i> Free Premium Plugins</li>
-                            <li><i class="fa fa-star-o"></i> Google Maps</li>
-                            <li><i class="fa fa-star-o"></i> Smooth Animations</li>
-                            <li><i class="fa fa-star-o"></i> ... and Much More</li>
+                            @foreach (var item in list3)
+                            {
+                                <li><i class="fa fa-star-o"></i> @item.Name</li>
+                            }
+                            <li><i class="fa fa-star-o"></i> ... и многое другое</li>
                         </ul>
                     </div>
                 </div>
@@ -447,8 +237,8 @@
                 <!--Animation Block-->
                 <div class="vlt-animation-block" data-aos="fade" data-aos-delay="0">
                     <h3 class="vlt-white-color text-lowercase m-0">
-                        Start creating your amazing website <br>
-                        with Leedo site template.
+                        Начни искать лучший ВУЗ или ССУЗ <br>
+                        ПРЯМО СЕЙЧАС
                     </h3>
                 </div>
                 <div class="vlt-gap-30"></div>
@@ -458,12 +248,12 @@
                     <div class="text-center">
                         <!--Animation Block-->
                         <div class="vlt-animation-block" data-aos="fade" data-aos-delay="100">
-                            <p class="vlt-white-color">Exclusively only on ThemeForest, grab your copy right now.</p>
+                            <p class="vlt-white-color">И у тебя будет больше шансов попасть на бюджетное место</p>
                         </div>
                         <div class="vlt-gap-45"></div>
                         <!--Animation Block-->
                         <div class="vlt-animation-block" data-aos="fade" data-aos-delay="200">
-                            <!--Button--><a class="vlt-btn vlt-btn--sixth vlt-btn--lg vlt-btn--effect" href="https://1.envato.market/c/417052/298927/4662?u=https%3A%2F%2Fthemeforest.net%2Fitem%2Fleedo-modern-colorful-creative-portfolio-html5-template%2F23394543" target="_blank"><span>Purchase Now</span></a>
+                            <!--Button--><a class="vlt-btn vlt-btn--sixth vlt-btn--lg vlt-btn--effect" asp-action="UniSearch" asp-controller="Home"><span>Найти учебное заведение</span></a>
                         </div>
                     </div>
                 </div>

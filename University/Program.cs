@@ -3,6 +3,7 @@ using Data.Repository.University;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using University.Service.IdentityService;
 using University.Service.UniService;
 using University.Service.UniversityService;
 
@@ -44,7 +45,8 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 builder.Services.AddTransient<IUniRepository, UniRepository>();
-builder.Services.AddTransient<IUniService, Uniservice>();
+builder.Services.AddTransient<IUniService, UniService>();
+builder.Services.AddScoped<IIdentityService, IdentityService>();
 
 var app = builder.Build();
 

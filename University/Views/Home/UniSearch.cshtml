@@ -73,19 +73,19 @@
                                     {
                                         <div class="vlt-fit-image" style="--size-md: 67.5%; --size-sm: 67.5%;"><img src="~/assets/img/attachment-12.jpg" alt=""></div>
 
-                                        <a class="vlt-post-thumbnail__link" href="single-post-01.html"></a>
+                                        <a class="vlt-post-thumbnail__link" asp-controller="Home" asp-action="UniSingle" asp-route-id="@item.Id"></a>
                                     }
                                     else
                                     {
                                         <div class="vlt-fit-image" style="--size-md: 67.5%; --size-sm: 67.5%;"><img src="~/assets/img/vuz/@item.Image" alt=""></div>
 
-                                        <a class="vlt-post-thumbnail__link" href="single-post-01.html"></a>
+                                        <a class="vlt-post-thumbnail__link" asp-controller="Home" asp-action="UniSingle" asp-route-id="@item.Id"></a>
                                     }
 
                                 </div>
                                 <div class="vlt-post-content">
                                     <header class="vlt-post-header">
-                                        <h3 class="vlt-post-title"><a href="single-post-01.html">@item.Name</a></h3>
+                                        <h3 class="vlt-post-title"><a asp-controller="Home" asp-action="UniSingle" asp-route-id="@item.Id">@item.Name</a></h3>
                                         <div class="vlt-post-meta vlt-display-1">
                                             <span>@Model.Citys.FirstOrDefault(c=> c.Id == item.CityId)?.Name</span><span>@item.Address</span>
                                         </div>

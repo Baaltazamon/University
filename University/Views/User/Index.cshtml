@@ -1,0 +1,62 @@
+﻿@model IEnumerable<UserViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<main class="vlt-main">
+    <section class="jarallax">
+        <img class="jarallax-img" src="~/assets/img/attachment-79.jpg" alt="">
+        <div class="vlt-gap-170"></div>
+        <div class="container">
+            <!--Large Heading-->
+            <h1 class="vlt-large-heading text-center" style="color:#fff;">
+                Список поль<span>зова</span>телей
+            </h1>
+        </div>
+        <div class="vlt-gap-170"></div>
+    </section>
+    <section>
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Логин</th>
+                        <th>Имя</th>
+                        <th>Отчество</th>
+                        <th>Фамилия</th>
+                        <th>Email</th>
+                        <th>Телефон</th>
+                        <th>Вкл. функция блокировки</th>
+                        <th>Тип пользователя</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@user.User.Id</td>
+                            <td>@user.User.UserName</td>
+                            <td>@user.User.FirstName</td>
+                            <td>@user.User.MiddleName</td>
+                            <td>@user.User.LastName</td>
+                            <td>@user.User.Email</td>
+                            <td>@user.User.PhoneNumber</td>
+                            <td>@user.User.LockoutEnabled</td>
+                            <td>
+                                @foreach (var role in user.Roles)
+                                {
+                                    <span>@role</span>
+                                    <br />
+                                }
+                            </td>
+                            <td><a asp-controller="User" asp-action="Edit" asp-route-id="@user.User.Id"><i class="fa fa-edit"></i></a>/
+                                <a asp-controller="User" asp-action="Delete"><i class="fa fa-remove"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>

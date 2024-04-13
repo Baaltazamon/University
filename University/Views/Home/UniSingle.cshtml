@@ -1,0 +1,143 @@
+﻿@using Data.Context
+@model UniSingleModel
+<main class="vlt-main">
+    <!--Post Thumbnail-->
+    <div class="vlt-single-post-thumbnail">
+        <!--Page Title Empty-->
+        <div class="vlt-page-title-empty vlt-page-title-empty--sm jarallax">
+            <img class="jarallax-img" src="~/assets/img/vuz/@Model.Organization.Image" alt="">
+        </div>
+    </div>
+    <!--Post Wrapper-->
+    <div class="vlt-single-post-wrapper vlt-single-post-wrapper--style-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <!--Single Post-->
+                    <article class="vlt-single-post">
+                        <!--Post Header-->
+                        <header class="vlt-single-post__header vlt-single-post__header--style-1">
+                            <h2 class="vlt-post-title">@Model.Organization!.Name</h2>
+                            <div class="vlt-post-meta vlt-display-1"><span>@Model.OrganizationType!.Name</span></div>
+                        </header>
+                        <!--Post Content-->
+                        <div class="vlt-single-post__content vlt-content-markup clearfix">
+                            <p>@Model.Organization.Description</p>
+                            <div class="vlt-gap-30"></div>
+                            <!--Simple Image-->
+                            <div class="vlt-simple-image">
+                                <div class="vlt-fit-image" style="--size-md: 470px; --size-sm: 100%;"><img src="~/assets/img/vuz/@Model.Organization.Image" alt=""></div>
+                            </div>
+                            <div class="vlt-gap-60"></div>
+                            <h4 class="mt-0">Программы обучения</h4>
+                            @foreach (var item in Model.ProgramEducationalOrganizations)
+                            {
+                                var edu = Model.Programs.FirstOrDefault(c => c.Id == item.EducationProgramId);
+                                var level = Model.Levels.FirstOrDefault(c => c.Id == item.EducationLevel);
+                                var disciplines = Model.Disciplines.Where(c =>
+                                Model.DisciplinesEducations.Where(c => c.EducationProgramId == edu.Id).Select(c => c.DisciplineId).Contains(c.Id)).ToList();
+                                var pScore = Model.PassingScores.Where(c => c.ProgramEducationalOrganizationId == item.Id).ToList();
+                                var budget = pScore.FirstOrDefault(c => c.IsBudget && c.Year == pScore.Max(c => c.Year));
+                                var notBudget = pScore.FirstOrDefault(c => !c.IsBudget && c.Year == pScore.Max(c => c.Year));
+
+                                <div class="row">
+                                    <div class="card col-md-3">
+                                        <div class="vlt-widget-postlist">
+                                            <img src="~/assets/img/spec/@(edu.Image ?? "what.png")" alt="@edu.Name">
+                                        </div>
+                                    </div>
+                                    <div class="card col-md-7">
+                                        <div class="vlt-widget-post__content">
+                                            <h5><a>@edu.Name</a></h5>
+                                        </div>
+                                        <div>
+                                            <i>@level!.Name </i> &nbsp;&nbsp;&nbsp;&nbsp;
+                                            @if (Model.Organization.TypeId == 2)
+                                            {
+                                                <i><b>ЕГЭ:</b> <span>@string.Join(", ", disciplines.Select(c => c.Name)) </span></i>
+                                            }
+                                        </div>
+
+                                        <div class="textSpecBlock">
+                                            @item.Description
+                                        </div>
+                                    </div>
+                                    <div class="card col-md-2">
+                                        <div>
+                                            <div><center><b>Стоимость</b></center></div>
+                                            <center><a class="tooltipq">@item.TuitionPerYear ₽</a></center>
+                                        </div>
+                                        <div>
+                                            <div><center><b>Бюджет</b></center></div>
+                                            <center><a class="tooltipq" style="font-size: 14px;">@(budget is null ? "-" : budget.Score)  </a> <span><a>(@(budget is null ? "-" : budget.Year))</a></span></center>
+                                        </div>
+                                        <div>
+                                            <div><center><b>Платное</b></center></div>
+                                            <center><a class="tooltipq" style="font-size: 14px;">@(notBudget is null ? "-" : notBudget.Score)  </a> <span><a>(@(notBudget is null ? "-" : notBudget.Year))</a></span></center>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                       
+                    </article>
+
+                </div>
+                <div class="col-md-3">
+                    <div class="vlt-sidebar vlt-sidebar--right">
+                        <!--Widget-->
+                        
+                        <!--Widget-->
+                        <div class="vlt-widget vlt-widget-categories">
+                            <h5 class="vlt-widget__title">Специальности</h5>
+                            <ul>
+                                @foreach (var spec in Model.Specializations)
+                                {
+                                    <li><a>@spec.Name</a> (@Model.Programs.Count(c => c.EducationalOrganizationSpecializationId == spec.Id))</li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="vlt-widget vlt-widget-instagram">
+                            <h5 class="vlt-widget__title">Программы</h5>
+                            <ul>
+                                @foreach (var prog in Model.Programs)
+                                {
+                                    <li><a><img src="~/assets/img/spec/@prog.Image" alt="@prog.Name"></a></li>
+                                }
+                            </ul>
+                        </div>
+                        <!--Widget-->
+                        <div class="vlt-widget vlt-widget-postlist">
+                            <h5 class="vlt-widget__title">Контакты</h5>
+                            <ul>
+                                @foreach (var contact in Model.Contacts)
+                                {
+                                    <li>
+                                        <!--Blog Post-->
+                                        <article class="vlt-widget-post">
+                                            <div class="vlt-widget-post__thumbnail">
+                                                <a>
+                                                    <i class="leedo-@(contact.TypeContactId switch
+											                                                            {
+											                                                                1 => "email",
+											                                                                2 => "wireframe",
+											                                                                _ => "website"
+											                                                                })"></i>
+                                                </a>
+                                            </div>
+                                            <div class="vlt-widget-post__content">
+                                                <h5><a>@contact.Value</a></h5>
+                                            </div>
+                                        </article>
+                                    </li>
+                                }
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
