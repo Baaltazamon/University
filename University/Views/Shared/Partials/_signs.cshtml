@@ -3,7 +3,9 @@
     <div class="d-flex align-items-center">
         <a class="vlt-menu-burger" href="#" id="vlt-fullscreen-menu-open">
             <span class="line line-one"><span></span></span><span class="line line-two"><span></span></span><span class="line line-three"><span></span></span>
-        </a><a class="vlt-menu-shop-cart" href="#"><i class="leedo-user-shape"></i><span>out</span></a>
+        </a>
+        <a class="vlt-menu-shop-cart" asp-controller="Home" asp-action="Menu"><i class="leedo-user-shape"></i></a>
+        <a class="vlt-menu-shop-cart" asp-action="Logout" asp-controller="Account"><i class="leedo-close"></i><span>out</span></a>
     </div>
 }
 else
@@ -11,6 +13,6 @@ else
     <div class="d-flex align-items-center">
         <a class="vlt-menu-burger" href="#" id="vlt-fullscreen-menu-open">
             <span class="line line-one"><span></span></span><span class="line line-two"><span></span></span><span class="line line-three"><span></span></span>
-        </a><a class="vlt-menu-shop-cart" href="#"><i class="leedo-password"></i><span>in</span></a>
+        </a><a class="vlt-menu-shop-cart" asp-controller="Account" asp-action="Login" asp-route-returnUrl="Index"><i class="leedo-password"></i><span>in</span></a>
     </div>
 }

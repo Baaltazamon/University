@@ -1,5 +1,7 @@
 ﻿@{
     string errorMessage = ViewData["ErrorMessage"] as string;
+    string act = ViewData["Page"] as string;
+    string controller = ViewData["Controller"] as string;
 }
 <main class="vlt-main">
     <!--404-->
@@ -14,7 +16,7 @@
                     <div class="vlt-page-404"><strong>404</strong>
                         <h1>Страница не найдена</h1>
                         <p>@errorMessage</p>
-                        <!--Button--><a class="vlt-btn vlt-btn--primary vlt-btn--lg vlt-btn--effect" asp-controller="Home" asp-action="Index"><span>На главную</span></a>
+                        <!--Button--><a class="vlt-btn vlt-btn--primary vlt-btn--lg vlt-btn--effect" asp-controller="@controller" asp-action="@act"><span>На главную</span></a>
                     </div>
                 </div>
             </div>

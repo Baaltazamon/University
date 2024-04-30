@@ -1,18 +1,17 @@
 ﻿@model EditUserViewModel
 <main class="vlt-main">
-    <section class="jarallax">
-        <img class="jarallax-img" src="~/assets/img/attachment-79.jpg" alt="">
-        <div class="vlt-gap-170"></div>
-        <div class="container">
-            <!--Large Heading-->
-            <h1 class="vlt-large-heading text-center" style="color:#fff;">
-                Редактирование поль<span>зова</span>теля
-            </h1>
-        </div>
-        <div class="vlt-gap-170"></div>
-    </section>
     <section>
         <div class="container">
+            <h3 class="text-center" style="color:#000;">
+                Редактирование поль<span>зова</span>теля
+            </h3>
+            <hr />
+            <div>
+                <a class="text-info" asp-controller="Home" asp-action="Menu">Меню</a>/
+                <a class="text-primary" asp-action="Index" asp-controller="User">Пользователи</a>/
+                <a href="#">@Model.UserName</a>
+            </div>
+            <hr />
             <form asp-controller="User" asp-action="Edit" method="post">
                 <div asp-validation-summary="All" class="text-danger"></div>
 

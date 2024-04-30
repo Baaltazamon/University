@@ -4,19 +4,22 @@
 }
 
 <main class="vlt-main">
-    <section class="jarallax">
-        <img class="jarallax-img" src="~/assets/img/attachment-79.jpg" alt="">
-        <div class="vlt-gap-170"></div>
-        <div class="container">
-            <!--Large Heading-->
-            <h1 class="vlt-large-heading text-center" style="color:#fff;">
-                Список поль<span>зова</span>телей
-            </h1>
-        </div>
-        <div class="vlt-gap-170"></div>
-    </section>
+    
     <section>
         <div class="container">
+            <h3 class="text-center" style="color:#000;">
+                Список поль<span>зова</span>телей
+            </h3>
+            <hr />
+            <div>
+                <a class="text-info" asp-controller="Home" asp-action="Menu">Меню</a>/
+                <a class="text-primary" asp-action="Index" asp-controller="User">Пользователи</a>
+            </div>
+            <hr />
+            @if (User.Claims.Count(c => c.Value == "Администратор") > 0)
+            {
+                <a class="btn btn-success" asp-controller="User" asp-action="Create">Добавить</a>
+            }
             <table class="table">
                 <thead>
                     <tr>
@@ -50,9 +53,14 @@
                                     <br />
                                 }
                             </td>
-                            <td><a asp-controller="User" asp-action="Edit" asp-route-id="@user.User.Id"><i class="fa fa-edit"></i></a>/
-                                <a asp-controller="User" asp-action="Delete"><i class="fa fa-remove"></i></a>
-                            </td>
+                            @if (User.Claims.Count(c => c.Value == "Администратор") > 0)
+                            {
+                                <td>
+                                    <a asp-controller="User" asp-action="Edit" asp-route-id="@user.User.Id"><i class="fa fa-edit"></i></a><br/>
+                                    <a href="@Url.Action("Delete", "User", new { id = user.User.Id })"><i class="fa fa-remove"></i></a>
+                                </td>
+                            }
+                           
                         </tr>
                     }
                 </tbody>

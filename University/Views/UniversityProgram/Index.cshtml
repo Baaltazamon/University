@@ -1,0 +1,65 @@
+﻿@model ProgramUniListModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<main class="vlt-main">
+
+    <section>
+        <div class="container">
+            <h3 class="text-center" style="color:#000;">
+                Прогр<span>ам</span>мы @Model.Name
+            </h3>
+            <hr />
+            <div>
+                <a class="text-info" asp-controller="Home" asp-action="Menu">Меню</a>/
+                <a class="text-primary" asp-action="Index" asp-controller="University">Образовательные организации</a> /
+                <a class="text-info" asp-action="Index" asp-controller="UniversityProgram" asp-route-id="@Model.Id">Программы обучения</a>
+            </div>
+            <hr />
+            <a class="btn btn-success" asp-controller="UniversityProgram" asp-action="Create" asp-route-id="@Model.Id">Добавить</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Название программы</th>
+                        <th>Специальность</th>
+                        <th>Продолжительность обучения, годы</th>
+                        <th>Описание</th>
+                        <th>Уровень образования</th>
+                        <th>Стоимость, руб</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var prog in Model.UniPrograms)
+                    {
+                        var program = Model.Programs.FirstOrDefault(c => c.Id == prog.EducationProgramId);
+                        <tr>
+                            <td>@program!.Name</td>
+                            <td>@Model.Specializations.FirstOrDefault(c => c.Id == program.EducationalOrganizationSpecializationId)!.Name</td>
+                            <td>@prog.Duration</td>
+                            <td>
+                                <details id="myDetails">
+                                    <summary>Показать/скрыть текст</summary>
+                                    <p>@prog.Description</p>
+                                </details>
+                            </td>
+                            <td>@Model.EducationLevels.FirstOrDefault(c=> c.Id == prog.EducationLevel)!.Name</td>
+                            <td>@prog.TuitionPerYear</td>
+                            <td>
+                                <a href="@Url.Action("Index", "PassingScore", new { id = prog.Id })"><i class="fa fa-bar-chart"></i></a>
+                                <a href="@Url.Action("Delete", "UniversityProgram", new { id = prog.Id })"><i class="fa fa-remove"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+<script>
+    function toggleDetails() {
+        var details = document.getElementById("myDetails");
+        details.open = !details.open;
+    }
+</script>
+

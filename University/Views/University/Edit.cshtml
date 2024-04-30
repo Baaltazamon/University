@@ -1,0 +1,87 @@
+﻿@model UniversityEditViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<main class="vlt-main">
+
+    <section>
+        <div class="container">
+            <h3 class="text-center" style="color:#000;">
+                Редактировать учебное за<span>ве</span>дение
+            </h3>
+            <hr />
+            <div>
+                <a class="text-info" asp-controller="Home" asp-action="Menu">Меню</a>/
+                <a class="text-primary" asp-action="Index" asp-controller="University">Образовательные организации</a>/
+                @Model.Organization!.Id
+            </div>
+            <hr />
+            <form asp-action="Edit" asp-controller="University" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <input type="hidden" asp-for="Organization.Id" />
+                <div class="form-group">
+                    <label asp-for="Organization.Name">Название</label>
+                    <input asp-for="Organization.Name" class="form-control" />
+                    <span asp-validation-for="Organization.Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Organization.Address">Адрес</label>
+                    <input asp-for="Organization.Address" class="form-control" />
+                    <span asp-validation-for="Organization.Address" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Organization.Description">Описание</label>
+                    <input asp-for="Organization.Description" class="form-control" />
+                    <span asp-validation-for="Organization.Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Image">Фото</label>
+                    <input name="Image" id="fileInput" class="form-control" type="file" onchange="updateFilename(this)" accept=".jpg, .jpeg, .png" />
+                    <input asp-for="Organization.Image" id="filenameInput" class="form-control" type="text" hidden="true" />
+
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Organization.CityId">Город</label>
+                    <select class="tp-layer-selectable" asp-for="Organization!.CityId">
+                        <option value="@null">Выбрать город</option>
+                        @foreach (var city in Model.Cities!)
+                        {
+                            <option value="@city.Id">@city.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Organization.CityId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Organization.TypeId">Город</label>
+                    <select class="tp-layer-selectable" asp-for="Organization!.TypeId">
+                        <option value="@null">Выбрать тип организации</option>
+                        @foreach (var city in Model.TypeEducationalOrganizations!)
+                        {
+                            <option value="@city.Id">@city.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Organization.TypeId" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button class="btn btn-dark" asp-controller="University" asp-action="Index" class="btn btn-primary">Назад</button>
+            </form>
+        </div>
+    </section>
+</main>
+<script>
+    function updateFilename(input) {
+        if (input.files.length > 0) {
+            var filename = input.files[0].name;
+            document.getElementById('filenameInput').value = filename;
+        } else {
+            document.getElementById('filenameInput').value = '';
+        }
+    }
+</script>

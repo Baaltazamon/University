@@ -54,6 +54,24 @@ namespace Data.Repository.University
 	        return await db.EducationalOrganizationContacts.Where(c => c.EducationalOrganizationId == organizationId).ToListAsync();
         }
 
+        public async Task<int> AddContact(EducationalOrganizationContact contact)
+        {
+            await using var db = new UniversityDbContext(_serviceProvider.GetRequiredService<DbContextOptions<UniversityDbContext>>());
+            db.EducationalOrganizationContacts.Add(contact);
+            await db.SaveChangesAsync();
+            return contact.Id;
+        }
+
+        public async Task<bool> DeleteContact(int contactId)
+        {
+            await using var db = new UniversityDbContext(_serviceProvider.GetRequiredService<DbContextOptions<UniversityDbContext>>());
+            var contact = await db.EducationalOrganizationContacts.SingleOrDefaultAsync(c => c.Id == contactId);
+            if (contact == null) 
+                return false;
+            db.EducationalOrganizationContacts.Remove(contact);
+            return await db.SaveChangesAsync() > 0;
+        }
+
         public async Task<List<TypeContact>> GetAllType()
         {
 			await using var db = new UniversityDbContext(_serviceProvider.GetRequiredService<DbContextOptions<UniversityDbContext>>());
@@ -88,26 +106,33 @@ namespace Data.Repository.University
             return await db.Cities.ToListAsync();
         }
 
+        public async Task<List<TypeEducationalOrganization>> GetTypesEducationalOrganization()
+        {
+            await using var db = new UniversityDbContext(_serviceProvider
+                .GetRequiredService<DbContextOptions<UniversityDbContext>>());
+            return await db.TypeEducationalOrganizations.Where(c=> !c.IsDeleted).ToListAsync();
+        }
+
         public async Task<List<ProgramEducationalOrganization>> GetProgramEducationalOrganization(int id)
         {
             await using var db = new UniversityDbContext(_serviceProvider
                 .GetRequiredService<DbContextOptions<UniversityDbContext>>());
             return await db.ProgramsEducationalOrganization
-                .Where(p => p.EducationalOrganizationId == id).ToListAsync();
+                .Where(p => p.EducationalOrganizationId == id && !p.IsDeleted).ToListAsync();
         }
 
         public async Task<List<EducationLevel>> GetAllEducationalLevel()
         {
 	        await using var db = new UniversityDbContext(_serviceProvider
 		        .GetRequiredService<DbContextOptions<UniversityDbContext>>());
-            return await db.EducationLevel.ToListAsync();
+            return await db.EducationLevel.Where(c => !c.IsDeleted).ToListAsync();
 		}
 
         public async Task<List<Discipline>> GetAllDisciplines()
         {
 			await using var db = new UniversityDbContext(_serviceProvider
 				.GetRequiredService<DbContextOptions<UniversityDbContext>>());
-            return await db.Disciplines.ToListAsync();
+            return await db.Disciplines.Where(c=> !c.IsDeleted).ToListAsync();
 		}
 
         public async Task<List<DisciplineEducationProgram>> GetOrganizationProgramDisciplines(int id)
@@ -124,6 +149,92 @@ namespace Data.Repository.University
 				.GetRequiredService<DbContextOptions<UniversityDbContext>>());
 			var orgProg = (await GetProgramEducationalOrganization(id)).Select(c=> c.Id);
             return await db.PassingScores.Where(c=> orgProg.Contains(c.ProgramEducationalOrganizationId)).ToListAsync();
+        }
+
+        public async Task<ProgramEducationalOrganization?> GetOrganizationProgramEducationalOrganization(int id)
+        {
+            await using var db = new UniversityDbContext(_serviceProvider
+                .GetRequiredService<DbContextOptions<UniversityDbContext>>());
+            return await db.ProgramsEducationalOrganization.Where(c => c.Id == id)
+                .Include(c => c.EducationProgram).FirstOrDefaultAsync();
+
+        }
+
+        public async Task<int> AddProgramEducationOrganization(ProgramEducationalOrganization entity)
+        {
+            await using var db = new UniversityDbContext(_serviceProvider
+                .GetRequiredService<DbContextOptions<UniversityDbContext>>());
+            await db.ProgramsEducationalOrganization.AddAsync(entity);
+            await db.SaveChangesAsync();
+            return entity.Id;
+        }
+
+        public async Task<int> DeleteProgramEducationOrganization(int id)
+        {
+            await using var db = new UniversityDbContext(_serviceProvider
+                .GetRequiredService<DbContextOptions<UniversityDbContext>>());
+            var prog = await db.ProgramsEducationalOrganization.FirstOrDefaultAsync(c => c.Id == id);
+            if (prog == null)
+                return 0;
+            prog.IsDeleted = true;
+            await db.SaveChangesAsync();
+            return prog.EducationalOrganizationId;
+        }
+
+        public async Task<List<DisciplineEducationProgram>> GetDisciplineEducationPrograms(int id)
+        {
+            await using var db = new UniversityDbContext(_serviceProvider
+                .GetRequiredService<DbContextOptions<UniversityDbContext>>());
+            var disciplines = await db.DisciplinesEducationProgram.Where(c=> c.EducationProgramId == id).ToListAsync();
+            return disciplines;
+        }
+
+        public async Task<int> AddDisciplineEducationProgram(DisciplineEducationProgram entity)
+        {
+            await using var db = new UniversityDbContext(_serviceProvider
+                .GetRequiredService<DbContextOptions<UniversityDbContext>>());
+            await db.DisciplinesEducationProgram.AddAsync(entity);
+            await db.SaveChangesAsync();
+            return entity.Id;
+        }
+
+        public async Task<int> DeleteDisciplineEducationPrograms(int id)
+        {
+            await using var db = new UniversityDbContext(_serviceProvider
+                .GetRequiredService<DbContextOptions<UniversityDbContext>>());
+            var discipline = await db.DisciplinesEducationProgram.FirstOrDefaultAsync(c => c.Id == id);
+            if (discipline == null) return 0;
+            db.DisciplinesEducationProgram.Remove(discipline);
+            await db.SaveChangesAsync();
+            return discipline.EducationProgramId;
+        }
+
+        public async Task<List<PassingScore>> GetPassingScore(int id)
+        {
+            await using var db = new UniversityDbContext(_serviceProvider
+                .GetRequiredService<DbContextOptions<UniversityDbContext>>());
+            return await db.PassingScores.Where(c=> c.ProgramEducationalOrganizationId == id).ToListAsync();
+        }
+
+        public async Task<int> AddPassingScore(PassingScore entity)
+        {
+            await using var db = new UniversityDbContext(_serviceProvider
+                .GetRequiredService<DbContextOptions<UniversityDbContext>>());
+            await db.PassingScores.AddAsync(entity);
+            await db.SaveChangesAsync();
+            return entity.Id;
+        }
+
+        public async Task<int> DeletePassingScore(int id)
+        {
+            await using var db = new UniversityDbContext(_serviceProvider
+                .GetRequiredService<DbContextOptions<UniversityDbContext>>());
+            var score = await db.PassingScores.FindAsync(id);
+            if (score == null) 
+                return 0;
+            db.PassingScores.Remove(score);
+            await db.SaveChangesAsync();
+            return score.ProgramEducationalOrganizationId;
         }
 
         public async Task<int> AddSpecialization(Specialization entity)
@@ -171,6 +282,16 @@ namespace Data.Repository.University
             {
                 return false;
             }
+        }
+
+        public async Task<bool> DeleteEducationProgram(int id)
+        {
+            await using var db = new UniversityDbContext(_serviceProvider.GetRequiredService<DbContextOptions<UniversityDbContext>>());
+            var organization = await db.EducationPrograms.FindAsync(id);
+            if (organization == null) return false;
+            organization.IsDeleted = true;
+            var save = await db.SaveChangesAsync();
+            return save > 0;
         }
 
         public async Task<List<EducationProgram>> GetOrganizationEducationProgram(int id)
@@ -230,16 +351,25 @@ namespace Data.Repository.University
             }
         }
 
+        public async Task<bool> CheckUsers()
+        {
+            await using var db = new UniversityDbContext(_serviceProvider.GetRequiredService<DbContextOptions<UniversityDbContext>>());
+            var f = db.Users.Count() > 0;
+            return db.Users.Any();
+        }
+
+
         public async Task<List<EducationalOrganization>> GetAllEducationalOrganization()
         {
             await using var db = new UniversityDbContext(_serviceProvider.GetRequiredService<DbContextOptions<UniversityDbContext>>());
-            return await db.EducationalOrganizations.Where(c => !c.IsDeleted).ToListAsync();
+            return await db.EducationalOrganizations.Where(c => !c.IsDeleted).Include(c=> c.TypeEducationalOrganization)
+                .Include(c=> c.City).ToListAsync();
         }
 
         public async Task<List<EducationProgram>> GetAllEducationProgram()
         {
             await using var db = new UniversityDbContext(_serviceProvider.GetRequiredService<DbContextOptions<UniversityDbContext>>());
-            return await db.EducationPrograms.ToListAsync();
+            return await db.EducationPrograms.Where(c=> !c.IsDeleted).ToListAsync();
         }
 
         public async Task<List<string?>> GetRandomEducationProgram(int count)

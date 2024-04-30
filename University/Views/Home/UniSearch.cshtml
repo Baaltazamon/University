@@ -27,19 +27,19 @@
                     <form method="get" asp-controller="Home" asp-action="UniSearch">
                         <div>
                             <label asp-for="Filters.Name">Название</label>
-                            <input class="input-group-text" asp-for="Filters.Name" placeholder="Поиск по названию" />
+                            <input class="input-group-text" asp-for="Filters.Name" placeholder="Поиск по названию" style="height: 30px;"/>
                         </div>
                         <hr />
                         <div>
                             <label asp-for="Filters.CityId">Город</label>
-                            <select class="tp-layer-selectable" asp-for="Filters.CityId" asp-items="@(new SelectList(Model.Citys, "Id", "Name"))">
+                            <select class="tp-layer-selectable text-center" style="height: 30px;" asp-for="Filters.CityId" asp-items="@(new SelectList(Model.Citys, "Id", "Name"))">
                                 <option value="@null">Выбрать город</option>
                             </select>
                         </div>
                         <hr/>
                         <div>
                             <label asp-for="Filters.ProgramIds">Специальности</label>
-                            <select class="tp-layer-selectable" asp-for="Filters.ProgramIds" asp-items="@(new SelectList(Model.Specializations, "Id", "Name"))" multiple>
+                            <select class="tp-layer-selectable" style="height: 30px;" asp-for="Filters.ProgramIds" asp-items="@(new SelectList(Model.Specializations, "Id", "Name"))" multiple>
                             </select>
                         </div>
                         <hr/>

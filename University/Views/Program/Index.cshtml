@@ -1,0 +1,63 @@
+﻿@model ProgramListModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<main class="vlt-main">
+
+    <section>
+        <div class="container">
+            <h3 class="text-center" style="color:#000;">
+                Список образовательных прог<span>ра</span>мм
+            </h3>
+            <hr />
+            <div>
+                <a class="text-info" asp-controller="Home" asp-action="Menu">Меню</a>/
+                <a class="text-primary" asp-action="Index" asp-controller="Program">Образовательные программы</a>
+            </div>
+            <hr />
+            <a class="btn btn-success" asp-controller="Program" asp-action="Create">Добавить</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Фото</th>
+                        <th>Название</th>
+                        <th>Специальность</th>
+                        <th>Описание</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var organization in Model.Programs)
+                    {
+                        <tr>
+                            <td>
+                                <img src="assets/img/spec/@organization.Image" height="100" alt="@organization.Name" />
+                            </td>
+                            <td>@organization.Name</td>
+                            <td>@Model.Specializations.FirstOrDefault(c=> c.Id == organization.EducationalOrganizationSpecializationId)!.Name</td>
+                            <td>
+                                <details id="myDetails">
+                                    <summary>Показать/скрыть текст</summary>
+                                    <p>@organization.Description</p>
+                                </details>
+
+                            </td>
+                            <td>
+                                <a asp-controller="Program" asp-action="Edit" asp-route-id="@organization.Id"><i class="fa fa-edit"></i></a><br />
+                                <a asp-controller="ProgramDiscipline" asp-action="Index" asp-route-id="@organization.Id"><i class="fa fa-dashboard"></i></a><br />
+                                <a href="@Url.Action("Delete", "Program", new { id = organization.Id })"><i class="fa fa-remove"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+<script>
+    function toggleDetails() {
+        var details = document.getElementById("myDetails");
+        details.open = !details.open;
+    }
+</script>
+

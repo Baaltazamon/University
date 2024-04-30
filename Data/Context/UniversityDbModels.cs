@@ -15,8 +15,8 @@ namespace Data.Context
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("Id")]
         public int Id { get; set; }
-
-        [Required]
+        
+        [Required(ErrorMessage = "Название обязательное поле")]
         [Column("Name")]
         public string Name { get; set; }
 
@@ -95,7 +95,7 @@ namespace Data.Context
 
         [Required]
         [Column("Image")]
-        public string? Image { get; set; }
+        public string Image { get; set; }
 
         [Required]
         [ForeignKey("TypeEducationalOrganization")]
@@ -114,8 +114,8 @@ namespace Data.Context
         [Column("Description")]
         public string? Description { get; set; }
 
-        public virtual TypeEducationalOrganization TypeEducationalOrganization { get; set; }
-        public virtual City City { get; set; }
+        public virtual TypeEducationalOrganization? TypeEducationalOrganization { get; set; }
+        public virtual City? City { get; set; }
     }
 
     /// <summary>
@@ -143,9 +143,9 @@ namespace Data.Context
         [Column("EducationalOrganizationId")]
         public int EducationalOrganizationId { get; set; }
 
-        public virtual TypeContact TypeContact { get; set; }
+        public virtual TypeContact? TypeContact { get; set; }
 
-        public virtual EducationalOrganization EducationalOrganization { get; set; }
+        public virtual EducationalOrganization? EducationalOrganization { get; set; }
     }
 
     /// <summary>
@@ -191,9 +191,13 @@ namespace Data.Context
         [Column("Image")]
         public string? Image { get; set; }
 
+        [Required]
+        [Column("IsDeleted")]
+        public bool IsDeleted { get; set; } = false;
+
         [Column("Description")]
         public string? Description { get; set; }
-        public virtual Specialization Specialization { get; set; }
+        public virtual Specialization? Specialization { get; set; }
     }
 
     /// <summary>
@@ -221,6 +225,10 @@ namespace Data.Context
         [Column("EducationalOrganizationId")]
         public int EducationalOrganizationId { get; set; }
 
+        [Required]
+        [Column("IsDeleted")]
+        public bool IsDeleted { get; set; } = false;
+
         [Column("Duration")]
         public int Duration { get; set; }
 
@@ -230,9 +238,9 @@ namespace Data.Context
         [Column("Description")]
         public string Description { get; set; }
 
-        public virtual EducationLevel Level { get; set; }
-        public virtual EducationProgram EducationProgram { get; set; }
-        public virtual EducationalOrganization EducationalOrganization { get; set; }
+        public virtual EducationLevel? Level { get; set; }
+        public virtual EducationProgram? EducationProgram { get; set; }
+        public virtual EducationalOrganization? EducationalOrganization { get; set; }
     }
 
     /// <summary>
@@ -262,7 +270,7 @@ namespace Data.Context
         [Column("IsBudget")]
         public bool IsBudget { get; set; } = true;
 
-        public virtual ProgramEducationalOrganization ProgramEducationalOrganization { get; set; }
+        public virtual ProgramEducationalOrganization? ProgramEducationalOrganization { get; set; }
     }
 
     /// <summary>
@@ -304,8 +312,8 @@ namespace Data.Context
         [Column("DisciplineId")]
         public int DisciplineId { get; set; }
 
-        public virtual EducationProgram EducationProgram { get; set; }
-        public virtual Discipline Discipline { get; set; }
+        public virtual EducationProgram? EducationProgram { get; set; }
+        public virtual Discipline? Discipline { get; set; }
     }
 
     /// <summary>

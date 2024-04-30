@@ -578,7 +578,8 @@ namespace Data.Context
         }
 
         public DbSet<Specialization> Specializations { get; set; }
-        public DbSet<TypeEducationalOrganization?> TypeEducationalOrganizations { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<TypeEducationalOrganization> TypeEducationalOrganizations { get; set; }
         public DbSet<TypeContact> TypesContact { get; set; }
         public DbSet<EducationalOrganization> EducationalOrganizations { get; set; }
         public DbSet<EducationalOrganizationContact> EducationalOrganizationContacts { get; set; }

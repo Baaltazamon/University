@@ -111,7 +111,7 @@
                     <div class="col-md">
                         <div class="vlt-animation-block" data-aos="fade" data-aos-delay="@(i * 100)">
                             <!--Partner Logo-->
-                            @if (Model.Images[i] is null)
+                            @if (string.IsNullOrEmpty(Model.Images[i]))
                             {
                                 <div class="vlt-partner-logo" style="opacity:1; height:50px;"><img src="~/assets/img/spec/what.png" alt="???" style="height:140px;"></div>
                             }

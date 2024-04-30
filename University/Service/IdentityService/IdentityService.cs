@@ -1,13 +1,17 @@
-﻿using Data.Context;
+﻿using System.Security.Claims;
+using Data.Context;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using University.Models;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace University.Service.IdentityService
 {
     public class IdentityService : IIdentityService
     {
         private readonly UserManager<User> _userManager;
+
         public IdentityService(UserManager<User> userManager)
         {
             _userManager = userManager;
@@ -96,6 +100,95 @@ namespace University.Service.IdentityService
         {
             var user = await _userManager.FindByIdAsync(id); 
             return await _userManager.DeleteAsync(user);
+        }
+
+        public async Task<bool> CreateStartUsers()
+        {
+            var res = await _userManager.Users.CountAsync();
+            if (res > 0)
+                return true;
+            var admin = new User
+            {
+                UserName = "admin",
+                Email = "admin@mail.ru",
+                FirstName = "Виктор",
+                MiddleName = "Дмитриевич",
+                LastName = "Земский",
+                PhoneNumber = "89158529647",
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
+                LockoutEnabled = false
+            };
+            var result = await _userManager.CreateAsync(admin, "Admin1!");
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(admin, "АДМИНИСТРАТОР");
+            }
+
+            var moder1 = new User
+            {
+                UserName = "moder1",
+                Email = "moder1@mail.ru",
+                FirstName = "Иван",
+                MiddleName = "Иванович",
+                LastName = "Иванов",
+                PhoneNumber = "89813854842",
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
+                LockoutEnabled = true
+            };
+            result = await _userManager.CreateAsync(moder1, "Moder1!");
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(moder1, "МОДЕРАТОР");
+            }
+            var moder2 = new User
+            {
+                UserName = "moder2",
+                Email = "moder2@mail.ru",
+                FirstName = "Пётр",
+                MiddleName = "Петрович",
+                LastName = "Петров",
+                PhoneNumber = "89134128850",
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
+                LockoutEnabled = true
+            };
+            result = await _userManager.CreateAsync(moder2, "Moder2!");
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(moder2, "МОДЕРАТОР");
+            }
+            var moder3 = new User
+            {
+                UserName = "moder3",
+                Email = "moder3@mail.ru",
+                FirstName = "Максим",
+                MiddleName = "Максимович",
+                LastName = "Максимов",
+                PhoneNumber = "89657824598",
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
+                LockoutEnabled = true
+            };
+            result = await _userManager.CreateAsync(moder3, "Moder3!");
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(moder3, "МОДЕРАТОР");
+            }
+
+            return true;
+        }
+
+        public async Task<User> GetUserByName(string name)
+        {
+            return await _userManager.FindByNameAsync(name);
+        }
+
+        public async Task<string> GetUserRole(User user)
+        {
+            var roles = await _userManager.GetRolesAsync(user);
+            return roles.First();
         }
     }
 }

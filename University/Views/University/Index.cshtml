@@ -1,0 +1,72 @@
+﻿@model List<Data.Context.EducationalOrganization>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<main class="vlt-main">
+
+    <section>
+        <div class="container">
+            <h3 class="text-center" style="color:#000;">
+                Список образовательных орга<span>ни</span>заций
+            </h3>
+            <hr />
+            <div>
+                <a class="text-info" asp-controller="Home" asp-action="Menu">Меню</a>/
+                <a class="text-primary" asp-action="Index" asp-controller="University">Образовательные организации</a>
+            </div>
+            <hr />
+            <a class="btn btn-success" asp-controller="University" asp-action="Create">Добавить</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Фото</th>
+                        <th>Название</th>
+                        <th>Адрес</th>
+                        <th>Описание</th>
+                        <th>Город</th>
+                        <th>Тип</th>
+                        <th>Допонительная информация</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var organization in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img src="assets/img/vuz/@organization.Image" height="100" alt="@organization.City!.Name" />
+                            </td>
+                            <td>@organization.Name</td>
+                            <td>@organization.Address</td>
+                            <td>
+                                <details id="myDetails">
+                                    <summary>Показать/скрыть текст</summary>
+                                    <p>@organization.Description</p>
+                                </details>
+
+                            </td>
+                            <td>@organization.City.Name</td>
+                            <td>@organization.TypeEducationalOrganization!.Name</td>
+                            <td>
+                                <div class="text-center">
+                                    <a class="btn btn-light" asp-controller="Contact" asp-action="Index" asp-route-id="@organization.Id">Контакты</a><br />
+                                    <a class="btn btn-light" asp-controller="UniversityProgram" asp-action="Index" asp-route-id="@organization.Id">Программы обучения</a>
+                                </div>
+                            </td>
+                            <td>
+                                <a asp-controller="University" asp-action="Edit" asp-route-id="@organization.Id"><i class="fa fa-edit"></i></a><br/>
+                                <a href="@Url.Action("Delete", "University", new { id = organization.Id })"><i class="fa fa-remove"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+<script>
+    function toggleDetails() {
+        var details = document.getElementById("myDetails");
+        details.open = !details.open;
+    }
+</script>

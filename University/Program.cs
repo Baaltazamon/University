@@ -1,5 +1,7 @@
 using Data.Context;
 using Data.Repository.University;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,12 +16,13 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<UniversityDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("UniversityDb"),
-    b => b.MigrationsAssembly(typeof(Program).Assembly.FullName)));
+    b => b.MigrationsAssembly("Data")));
 
 builder.Services.AddDbContext<MyIdentityDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("UniversityDb"),
-        b => b.MigrationsAssembly(typeof(Program).Assembly.FullName)));
+        b => b.MigrationsAssembly("Data")));
 builder.Services.AddIdentity<User, Roles>()
+    .AddSignInManager<SignInManager<User>>()
     .AddEntityFrameworkStores<MyIdentityDbContext>()
     .AddDefaultTokenProviders();
 
@@ -38,7 +41,8 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.HttpOnly = true;
-    options.Cookie.Expiration = TimeSpan.FromDays(30);
+    //options.Cookie.Expiration = TimeSpan.FromDays(30);
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
     options.LoginPath = "/Account/Login";
     options.LogoutPath = "/Account/Logout";
     options.AccessDeniedPath = "/Account/AccessDenied";
@@ -48,6 +52,10 @@ builder.Services.AddTransient<IUniRepository, UniRepository>();
 builder.Services.AddTransient<IUniService, UniService>();
 builder.Services.AddScoped<IIdentityService, IdentityService>();
 
+builder.Services.AddLogging(builder =>
+{
+    builder.AddConsole();
+});
 var app = builder.Build();
 
 
@@ -56,7 +64,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -64,9 +71,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

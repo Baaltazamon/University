@@ -1,0 +1,46 @@
+﻿@model PassingScoreListModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<main class="vlt-main">
+
+    <section>
+        <div class="container">
+            <h3 class="text-center" style="color:#000;">
+                Результаты поступлений на программу обучения @Model.Name
+            </h3>
+            <hr />
+            <div>
+                <a class="text-info" asp-controller="Home" asp-action="Menu">Меню</a>/
+                <a class="text-primary" asp-action="Index" asp-controller="University">Образовательные организации</a> /
+                <a class="text-info" asp-action="Index" asp-controller="UniversityProgram" asp-route-id="@Model.IdOrg">Программы обучения</a>/
+                <a class="text-info" asp-action="Index" asp-controller="PassingScore" asp-route-id="@Model.Id">Информация о поступлении</a>
+            </div>
+            <hr />
+            <a class="btn btn-success" asp-controller="PassingScore" asp-action="Create" asp-route-id="@Model.Id">Добавить</a>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Год</th>
+                    <th>Средний балл</th>
+                    <th>Бюджет</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var score in Model.PassingScores)
+                {
+                    <tr>
+                        <td>@score.Year</td>
+                        <td>@score.Score</td>
+                        <td>@(score.IsBudget ? "Да" : "Нет")</td>
+                        <td>
+                                <a href="@Url.Action("Delete", "PassingScore", new { id = score.Id })"><i class="fa fa-remove"></i></a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>

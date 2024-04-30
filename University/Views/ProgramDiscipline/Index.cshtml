@@ -1,0 +1,42 @@
+﻿@model ProgramDisciplineListModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<main class="vlt-main">
+
+    <section>
+        <div class="container">
+            <h3 class="text-center" style="color:#000;">
+                Предметы для поступление <span>на</span> @Model.Name
+            </h3>
+            <hr />
+            <div>
+                <a class="text-info" asp-controller="Home" asp-action="Menu">Меню</a>/
+                <a class="text-primary" asp-action="Index" asp-controller="Program">Программы обучения</a> /
+                <a class="text-info" asp-action="Index" asp-controller="ProgramDiscipline" asp-route-id="@Model.Id">Предметы для поступления</a>
+            </div>
+            <hr />
+            <a class="btn btn-success" asp-controller="ProgramDiscipline" asp-action="Create" asp-route-id="@Model.Id">Добавить</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Название дисциплины</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var discipline in Model.DisciplineEducationPrograms)
+                    {
+                        <tr>
+                            <td>@Model.Disciplines.FirstOrDefault(c => c.Id == discipline.DisciplineId)!.Name</td>
+                            <td>
+                                <a href="@Url.Action("Delete", "ProgramDiscipline", new { id = discipline.Id })"><i class="fa fa-remove"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+

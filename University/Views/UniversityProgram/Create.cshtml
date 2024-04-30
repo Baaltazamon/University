@@ -1,0 +1,74 @@
+﻿@model UniversityProgramViewModel
+@{
+    ViewData["Title"] = "Create";
+    var idOrg = (int)(TempData["UniId"] ?? 0);
+}
+
+
+<main class="vlt-main">
+
+    <section>
+        <div class="container">
+            <h3 class="text-center" style="color:#000;">
+                Добавление прог<span>рам</span>мы
+            </h3>
+            <hr />
+            <div>
+                <a class="text-info" asp-controller="Home" asp-action="Menu">Меню</a>/
+                <a class="text-primary" asp-action="Index" asp-controller="University">Образовательные организации</a>/
+                <a class="text-info" asp-action="Index" asp-controller="UniversityProgram" asp-route-id="@idOrg">Программы</a>/
+                <a href="#">Добавление новой программы</a>
+            </div>
+            <hr />
+            <form asp-controller="UniversityProgram" asp-action="Create">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <input asp-for="Program.EducationalOrganizationId" type="hidden" />
+
+                <div class="form-group">
+                    <label asp-for="Program.TuitionPerYear">Сумма в год</label>
+                    <input asp-for="Program.TuitionPerYear" class="form-control" type="number" />
+                    <span asp-validation-for="Program.TuitionPerYear" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Program.EducationLevel">Уровень образования</label>
+                    <select class="tp-layer-selectable" asp-for="Program.EducationLevel">
+                        <option value="@null">Выбрать уровень образования</option>
+                        @foreach (var city in Model.EducationsLevel!)
+                        {
+                            <option value="@city.Id">@city.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Program.EducationLevel" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Program.EducationProgramId">Программа обучения</label>
+                    <select class="tp-layer-selectable" asp-for="Program.EducationProgramId">
+                        <option value="@null">Выбрать программу обучения</option>
+                        @foreach (var city in Model.Educations!)
+                        {
+                            <option value="@city.Id">@city.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Program.EducationProgramId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Program.Description">Описание</label>
+                    <textarea asp-for="Program.Description" class="form-control"></textarea>
+                    <span asp-validation-for="Program.Description" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="Program.Duration">Продолжительность обучения</label>
+                    <input asp-for="Program.Duration" class="form-control" type="number" />
+                    <span asp-validation-for="Program.Duration" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Создать</button>
+                <button class="btn btn-dark" asp-controller="Contact" asp-action="Index" asp-route-id="@idOrg" class="btn btn-primary">Назад</button>
+            </form>
+        </div>
+    </section>
+</main>
+

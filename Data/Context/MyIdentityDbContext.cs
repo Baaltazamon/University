@@ -26,12 +26,14 @@ namespace Data.Context
                 new Roles
                 {
                     Id = "1",
-                    Name = "Администратор"
+                    Name = "Администратор",
+                    NormalizedName = "АДМИНИСТРАТОР"
                 },
                 new Roles
                 {
                     Id = "2",
-                    Name = "Модератор"
+                    Name = "Модератор",
+                    NormalizedName = "МОДЕРАТОР"
                 }
             });
 

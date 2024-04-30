@@ -619,6 +619,10 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Image");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnName("IsDeleted");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -636,6 +640,7 @@ namespace Data.Migrations
                             Id = 1,
                             EducationalOrganizationSpecializationId = 2,
                             Image = "mahmat.png",
+                            IsDeleted = false,
                             Name = "01.05.01 Фундаментальные математика и механика"
                         },
                         new
@@ -643,202 +648,231 @@ namespace Data.Migrations
                             Id = 2,
                             EducationalOrganizationSpecializationId = 1,
                             Image = "prinfo.png",
+                            IsDeleted = false,
                             Name = "09.03.01 Прикладная информатика"
                         },
                         new
                         {
                             Id = 3,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it.png",
+                            IsDeleted = false,
                             Name = "09.03.02 Информационные системы и технологии"
                         },
                         new
                         {
                             Id = 4,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "ite.png",
+                            IsDeleted = false,
                             Name = "09.03.03 Прикладная информатика в экономике"
                         },
                         new
                         {
                             Id = 5,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "iteng.png",
+                            IsDeleted = false,
                             Name = "09.03.04 Программная инженерия"
                         },
                         new
                         {
                             Id = 6,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "itec.png",
+                            IsDeleted = false,
                             Name = "09.03.05 Информационные системы и технологии (в экономике)"
                         },
                         new
                         {
                             Id = 7,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it2.png",
+                            IsDeleted = false,
                             Name = "09.03.06 Программирование"
                         },
                         new
                         {
                             Id = 8,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it3.png",
+                            IsDeleted = false,
                             Name = "09.03.07 Веб-технологии"
                         },
                         new
                         {
                             Id = 9,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it4.png",
+                            IsDeleted = false,
                             Name = "09.03.08 Математическое обеспечение и администрирование информационных систем"
                         },
                         new
                         {
                             Id = 10,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it5.png",
+                            IsDeleted = false,
                             Name = "09.03.09 Информационные системы и технологии (в здравоохранении)"
                         },
                         new
                         {
                             Id = 11,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it6.png",
+                            IsDeleted = false,
                             Name = "09.03.10 Информационные системы и технологии (в бизнесе)"
                         },
                         new
                         {
                             Id = 12,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it7.png",
+                            IsDeleted = false,
                             Name = "09.03.11 Информационная безопасность"
                         },
                         new
                         {
                             Id = 13,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it8.png",
+                            IsDeleted = false,
                             Name = "09.03.12 Информационные технологии в юриспруденции"
                         },
                         new
                         {
                             Id = 14,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it9.png",
+                            IsDeleted = false,
                             Name = "09.03.13 Наноинженерия"
                         },
                         new
                         {
                             Id = 15,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it11.png",
+                            IsDeleted = false,
                             Name = "09.03.14 Антикризисное управление"
                         },
                         new
                         {
                             Id = 16,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it12.png",
+                            IsDeleted = false,
                             Name = "09.03.15 Управление инновациями"
                         },
                         new
                         {
                             Id = 17,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it13.png",
+                            IsDeleted = false,
                             Name = "09.03.16 Информатика и вычислительная техника"
                         },
                         new
                         {
                             Id = 18,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it14.png",
+                            IsDeleted = false,
                             Name = "09.03.17 Интеллектуальные системы и технологии"
                         },
                         new
                         {
                             Id = 19,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it15.png",
+                            IsDeleted = false,
                             Name = "09.03.18 Технологии управления организацией"
                         },
                         new
                         {
                             Id = 20,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it16.png",
+                            IsDeleted = false,
                             Name = "09.03.19 Программное обеспечение экономической деятельности"
                         },
                         new
                         {
                             Id = 21,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it17.png",
+                            IsDeleted = false,
                             Name = "09.03.20 Программное обеспечение информационных технологий"
                         },
                         new
                         {
                             Id = 22,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it18.png",
+                            IsDeleted = false,
                             Name = "09.03.21 Программно-аппаратные комплексы защиты информации"
                         },
                         new
                         {
                             Id = 23,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it19.png",
+                            IsDeleted = false,
                             Name = "09.03.22 Компьютерное моделирование и комплексная автоматизация проектирования"
                         },
                         new
                         {
                             Id = 24,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it20.png",
+                            IsDeleted = false,
                             Name = "09.03.23 Прикладное программирование"
                         },
                         new
                         {
                             Id = 25,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it21.png",
+                            IsDeleted = false,
                             Name = "09.03.24 Программирование в интеллектуальных робототехнических системах"
                         },
                         new
                         {
                             Id = 26,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it22.png",
+                            IsDeleted = false,
                             Name = "09.03.25 Киберфизические системы"
                         },
                         new
                         {
                             Id = 27,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it23.png",
+                            IsDeleted = false,
                             Name = "09.03.26 Технологии промышленного программирования"
                         },
                         new
                         {
                             Id = 28,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it24.png",
+                            IsDeleted = false,
                             Name = "09.03.27 Технологии программирования систем и сетей"
                         },
                         new
                         {
                             Id = 29,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it25.png",
+                            IsDeleted = false,
                             Name = "09.03.28 Информационные системы"
                         },
                         new
                         {
                             Id = 30,
-                            EducationalOrganizationSpecializationId = 2,
+                            EducationalOrganizationSpecializationId = 1,
                             Image = "it10.png",
+                            IsDeleted = false,
                             Name = "09.02.07 Информационные системы и программирование"
                         });
                 });
@@ -971,6 +1005,10 @@ namespace Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("EducationalOrganizationId");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnName("IsDeleted");
+
                     b.Property<decimal>("TuitionPerYear")
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("TuitionPerYear");
@@ -994,6 +1032,7 @@ namespace Data.Migrations
                             EducationLevel = 3,
                             EducationProgramId = 30,
                             EducationalOrganizationId = 1,
+                            IsDeleted = false,
                             TuitionPerYear = 390000m
                         },
                         new
@@ -1004,6 +1043,7 @@ namespace Data.Migrations
                             EducationLevel = 4,
                             EducationProgramId = 30,
                             EducationalOrganizationId = 1,
+                            IsDeleted = false,
                             TuitionPerYear = 390000m
                         },
                         new
@@ -1014,6 +1054,7 @@ namespace Data.Migrations
                             EducationLevel = 5,
                             EducationProgramId = 30,
                             EducationalOrganizationId = 1,
+                            IsDeleted = false,
                             TuitionPerYear = 430000m
                         },
                         new
@@ -1024,6 +1065,7 @@ namespace Data.Migrations
                             EducationLevel = 1,
                             EducationProgramId = 30,
                             EducationalOrganizationId = 6,
+                            IsDeleted = false,
                             TuitionPerYear = 140000m
                         },
                         new
@@ -1034,6 +1076,7 @@ namespace Data.Migrations
                             EducationLevel = 2,
                             EducationProgramId = 30,
                             EducationalOrganizationId = 6,
+                            IsDeleted = false,
                             TuitionPerYear = 150000m
                         },
                         new
@@ -1044,6 +1087,7 @@ namespace Data.Migrations
                             EducationLevel = 3,
                             EducationProgramId = 30,
                             EducationalOrganizationId = 1,
+                            IsDeleted = false,
                             TuitionPerYear = 350000m
                         });
                 });

@@ -1,0 +1,43 @@
+﻿@model Data.Context.Specialization
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<main class="vlt-main">
+
+    <section>
+        <div class="container">
+            <h3 class="text-center" style="color:#000;">
+                Редактировать спе<span>ци</span>альность
+            </h3>
+            <hr />
+            <div>
+                <a class="text-info" asp-controller="Home" asp-action="Menu">Меню</a>/
+                <a class="text-primary" asp-action="Index" asp-controller="Specialization">Специальности</a>/
+                <a href="#">@Model.Id</a>
+            </div>
+            <hr />
+            <form asp-controller="Specialization" asp-action="Edit">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Name">Название</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Description">Описание</label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button class="btn btn-dark" asp-controller="Specialization" asp-action="Index" class="btn btn-primary">Назад</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+
+

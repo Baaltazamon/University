@@ -1,0 +1,69 @@
+﻿@model ProgramViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<main class="vlt-main">
+
+    <section>
+        <div class="container">
+            <h3 class="text-center" style="color:#000;">
+                Создать образовательную прог<span>ра</span>мму
+            </h3>
+            <hr />
+            <div>
+                <a class="text-info" asp-controller="Home" asp-action="Menu">Меню</a>/
+                <a class="text-primary" asp-action="Index" asp-controller="Program">Образовательные программы</a>/
+                <a href="#">Создание новой образовательной программы</a>
+            </div>
+            <hr />
+            <form asp-action="Create" asp-controller="Program" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Program!.Name">Название</label>
+                    <input asp-for="Program!.Name" class="form-control" />
+                    <span asp-validation-for="Program!.Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Program!.Description">Описание</label>
+                    <input asp-for="Program!.Description" class="form-control" />
+                    <span asp-validation-for="Program!.Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Image">Фото</label>
+                    <input name="Image" id="fileInput" class="form-control" type="file" onchange="updateFilename(this)" accept=".jpg, .jpeg, .png" />
+                    <input asp-for="Program!.Image" id="filenameInput" class="form-control" type="text" hidden="true" />
+
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Program!.EducationalOrganizationSpecializationId">Специальность</label>
+                    <select class="tp-layer-selectable" asp-for="Program!.EducationalOrganizationSpecializationId">
+                        <option value="@null">Выбрать специальность</option>
+                        @foreach (var city in Model.Specializations!)
+                        {
+                            <option value="@city.Id">@city.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Program!.EducationalOrganizationSpecializationId" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Создать</button>
+                <button class="btn btn-dark" asp-controller="Program" asp-action="Index" class="btn btn-primary">Назад</button>
+            </form>
+        </div>
+    </section>
+</main>
+<script>
+    function updateFilename(input) {
+        if (input.files.length > 0) {
+            var filename = input.files[0].name;
+            document.getElementById('filenameInput').value = filename;
+        } else {
+            document.getElementById('filenameInput').value = '';
+        }
+    }
+</script>

@@ -1,4 +1,5 @@
 ﻿using Data.Context;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using University.Service.IdentityService;
 
 namespace University.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IIdentityService _userManager;
@@ -20,13 +22,14 @@ namespace University.Controllers
             return View(users);
         }
 
-        
+        [Authorize(Roles = "АДМИНИСТРАТОР")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "АДМИНИСТРАТОР")]
         public async Task<IActionResult> Create(CreateUserViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
@@ -45,17 +48,21 @@ namespace University.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "АДМИНИСТРАТОР")]
         public async Task<IActionResult> Edit(string id)
         {
             var user = await _userManager.GetUserById(id);
             if (user is not null) return View(user);
             TempData["ErrorMessage"] = "Пользователь не существует!";
+            TempData["Page"] = "Index";
+            TempData["Controller"] = "User";
             return RedirectToAction("Error404", "Home");
 
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "АДМИНИСТРАТОР")]
         public async Task<IActionResult> Edit(EditUserViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
@@ -63,6 +70,8 @@ namespace University.Controllers
             if (user == null)
             {
                 TempData["ErrorMessage"] = "Пользователь не существует!";
+                TempData["Page"] = "Index";
+                TempData["Controller"] = "User";
                 return RedirectToAction("Error404", "Home");
             }
 
@@ -81,14 +90,15 @@ namespace University.Controllers
         }
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "АДМИНИСТРАТОР")]
         public async Task<IActionResult> Delete(string id)
         {
             var user = await _userManager.GetUserById(id);
             if (user == null)
             {
                 TempData["ErrorMessage"] = "Пользователь не существует!";
+                TempData["Page"] = "Index";
+                TempData["Controller"] = "User";
                 return RedirectToAction("Error404", "Home");
             }
             var result = await _userManager.DeleteUser(id);
