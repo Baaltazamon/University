@@ -7,6 +7,7 @@ using University.Service.UniService;
 using System.Security.Principal;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
+using Data.Context;
 
 namespace University.Controllers
 {
@@ -37,7 +38,24 @@ namespace University.Controllers
         {
             return View();
         }
-        
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> AddFeedback(Feedback feedback)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _service.AddFeedback(feedback);
+                if (result)
+                {
+                    // Redirect to the same page to show the updated feedback list
+                    return RedirectToAction("UniSingle", new { id = feedback.EducationalOrganizationId });
+                }
+            }
+            
+            return RedirectToAction("UniSingle", new { id = feedback.EducationalOrganizationId });
+        }
+
         [AllowAnonymous]
         public async Task<IActionResult> UniSearch(EduOrgFilter Filters)
         {

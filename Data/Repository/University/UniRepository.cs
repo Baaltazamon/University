@@ -48,6 +48,19 @@ namespace Data.Repository.University
             return await query.ToListAsync();
         }
 
+        public async Task<List<Feedback>> GetFeedbacks(int organizationId)
+        {
+			await using var db = new UniversityDbContext(_serviceProvider.GetRequiredService<DbContextOptions<UniversityDbContext>>());
+            return await db.Feedbacks.Where(c=> c.EducationalOrganizationId == organizationId).ToListAsync();
+		}
+
+        public async Task<bool> AddFeedback(Feedback feedback)
+        {
+            await using var db = new UniversityDbContext(_serviceProvider.GetRequiredService<DbContextOptions<UniversityDbContext>>());
+            await db.Feedbacks.AddAsync(feedback);
+            return await db.SaveChangesAsync() > 0;
+        }
+
         public async Task<List<EducationalOrganizationContact>> GetEducationalOrganizationContact(int organizationId)
         {
 	        await using var db = new UniversityDbContext(_serviceProvider.GetRequiredService<DbContextOptions<UniversityDbContext>>());

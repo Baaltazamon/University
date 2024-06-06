@@ -1,5 +1,6 @@
 ﻿@using Data.Context
 @model UniSingleModel
+
 <main class="vlt-main">
     <!--Post Thumbnail-->
     <div class="vlt-single-post-thumbnail">
@@ -43,7 +44,7 @@
                                 <div class="row">
                                     <div class="card col-md-3">
                                         <div class="vlt-widget-postlist">
-                                            <img src="~/assets/img/spec/@(edu.Image ?? "what.png")" alt="@edu.Name">
+                                            <img src="~/assets/img/spec/@(edu.Image is "" or null ? "what.png" : edu.Image)" alt="@edu.Name">
                                         </div>
                                     </div>
                                     <div class="card col-md-7">
@@ -78,15 +79,42 @@
                                     </div>
                                 </div>
                             }
-                        </div>
-                       
-                    </article>
 
+                            <div class="vlt-gap-60"></div>
+                            <h4 class="mt-0">Отзывы</h4>
+                            @foreach (var feedback in Model.Feedbacks)
+                            {
+                                <div class="vlt-single-post__comment">
+                                    <div class="vlt-single-post__comment-header">
+                                        <strong>@feedback.Name</strong>
+                                    </div>
+                                    <div class="vlt-single-post__comment-content">
+                                        <p>@feedback.TextFeedback</p>
+                                    </div>
+                                </div>
+                                <div class="vlt-gap-30"></div>
+                            }
+
+                            <div class="vlt-gap-60"></div>
+                            <h4 class="mt-0">Оставить отзыв</h4>
+                            <form asp-action="AddFeedback" method="post">
+                                <div class="form-group">
+                                    <label for="Name">Ваше имя</label>
+                                    <input type="text" class="form-control" id="Name" name="Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="TextFeedback">Ваш отзыв</label>
+                                    <textarea class="form-control" id="TextFeedback" name="TextFeedback" rows="3" required></textarea>
+                                </div>
+                                <input type="hidden" name="EducationalOrganizationId" value="@Model.Organization.Id" />
+                                <button type="submit" class="btn btn-primary">Отправить</button>
+                            </form>
+                        </div>
+                    </article>
                 </div>
                 <div class="col-md-3">
                     <div class="vlt-sidebar vlt-sidebar--right">
                         <!--Widget-->
-                        
                         <!--Widget-->
                         <div class="vlt-widget vlt-widget-categories">
                             <h5 class="vlt-widget__title">Специальности</h5>
@@ -131,8 +159,6 @@
                                         </article>
                                     </li>
                                 }
-
-
                             </ul>
                         </div>
                     </div>

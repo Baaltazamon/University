@@ -22,14 +22,14 @@ namespace University.Controllers
             return View(users);
         }
 
-        [Authorize(Roles = "АДМИНИСТРАТОР")]
+        [Authorize(Roles = "Администратор")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "АДМИНИСТРАТОР")]
+        [Authorize(Roles = "Администратор")]
         public async Task<IActionResult> Create(CreateUserViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
@@ -48,7 +48,7 @@ namespace University.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "АДМИНИСТРАТОР")]
+        [Authorize(Roles = "Администратор")]
         public async Task<IActionResult> Edit(string id)
         {
             var user = await _userManager.GetUserById(id);
@@ -62,7 +62,7 @@ namespace University.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "АДМИНИСТРАТОР")]
+        [Authorize(Roles = "Администратор")]
         public async Task<IActionResult> Edit(EditUserViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
@@ -90,7 +90,7 @@ namespace University.Controllers
         }
 
 
-        [Authorize(Roles = "АДМИНИСТРАТОР")]
+        [Authorize(Roles = "Администратор")]
         public async Task<IActionResult> Delete(string id)
         {
             var user = await _userManager.GetUserById(id);

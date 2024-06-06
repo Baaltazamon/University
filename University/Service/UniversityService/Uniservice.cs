@@ -85,6 +85,7 @@ namespace University.Service.UniversityService
                 Disciplines = await GetAllDisciplines(),
                 DisciplinesEducations = await _uniRepository.GetOrganizationProgramDisciplines(id),
                 PassingScores = await _uniRepository.GetOrganizationPassingScore(id),
+                Feedbacks = await _uniRepository.GetFeedbacks(id)
             };
             return result;
         }
@@ -193,6 +194,11 @@ namespace University.Service.UniversityService
         public Task<bool> DeleteContact(int id)
         {
             return _uniRepository.DeleteContact(id);
+        }
+
+        public async Task<bool> AddFeedback(Feedback feedback)
+        {
+            return await _uniRepository.AddFeedback(feedback);
         }
 
         public async Task<ProgramListModel> GetProgramListModel()

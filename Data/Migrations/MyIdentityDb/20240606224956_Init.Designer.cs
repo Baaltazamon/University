@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations.MyIdentityDb
 {
     [DbContext(typeof(MyIdentityDbContext))]
-    [Migration("20240316180214_InitIdentity")]
-    partial class InitIdentity
+    [Migration("20240606224956_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,20 +54,16 @@ namespace Data.Migrations.MyIdentityDb
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "0171f587-4dc7-496c-868b-df1bf090da3c",
-                            Name = "Администратор"
+                            ConcurrencyStamp = "5eb54517-d559-4818-9a9e-ffb088f25729",
+                            Name = "Администратор",
+                            NormalizedName = "АДМИНИСТРАТОР"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "7c6511dc-9d34-4c92-8805-ede14be0c045",
-                            Name = "Модератор"
-                        },
-                        new
-                        {
-                            Id = "3",
-                            ConcurrencyStamp = "cf02c43d-4ef9-4959-b3c5-e04fc6815f06",
-                            Name = "Пользователь"
+                            ConcurrencyStamp = "4a2f885a-507b-4578-92eb-d73988e1ff79",
+                            Name = "Модератор",
+                            NormalizedName = "МОДЕРАТОР"
                         });
                 });
 

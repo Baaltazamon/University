@@ -44,7 +44,7 @@ namespace University.Service.UniService
         public Task<int> AddContact(EducationalOrganizationContact contact);
         public Task<bool> DeleteContact(int id);
 
-
+        public Task<bool> AddFeedback(Feedback feedback);
         #endregion
 
         #region Education Program Methods

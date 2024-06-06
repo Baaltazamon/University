@@ -30,7 +30,7 @@
 				{
 					<article class="vlt-portfolio-item vlt-portfolio-item--style-1 filter-@item.EducationalOrganizationSpecializationId cbp-item">
                         <div class="vlt-portfolio-item-img">
-							@if (item.Image is null)
+							@if (item.Image is null || item.Image == "")
 							{
 								<div class="vlt-fit-image" style="--size-md: 90%; --size-sm: 90%;"><img src="~/assets/img/spec/what.png" alt="@item.Name"></div>
 							}

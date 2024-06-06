@@ -19,6 +19,8 @@ namespace Data.Repository.University
         public Task<int> AddEducationalOrganization(EducationalOrganization entity);
         public Task<List<EducationalOrganization>> GetFiltredOrganizations(EduOrgFilter filter);
 
+        public Task<List<Feedback>> GetFeedbacks(int organizationId);
+        public Task<bool> AddFeedback(Feedback feedback);
         public Task<List<EducationalOrganizationContact>> GetEducationalOrganizationContact(int organizationId);
         public Task<int> AddContact(EducationalOrganizationContact contact);
         public Task<bool> DeleteContact(int contactId);

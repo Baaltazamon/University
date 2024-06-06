@@ -243,10 +243,34 @@ namespace Data.Context
         public virtual EducationalOrganization? EducationalOrganization { get; set; }
     }
 
+    [Table("Feedback")]
+    public class Feedback
+    {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("Id")]
+        public int Id { get; set; }
+
+        [Required]
+        [Column("Name")]
+        public string Name { get; set; }
+
+        [Required]
+        [Column("TextFeedback")]
+        public string TextFeedback { get; set; }
+
+        [Required]
+        [ForeignKey("EducationalOrganization")]
+        [Column("EducationalOrganizationId")]
+        public int EducationalOrganizationId { get; set; }
+
+        public virtual EducationalOrganization? EducationalOrganization { get; set; }
+	}
+
+
     /// <summary>
-    /// Минимальные вступительные баллы
-    /// </summary>
-    [Table("PassingScore")]
+        /// Минимальные вступительные баллы
+        /// </summary>
+        [Table("PassingScore")]
     public class PassingScore
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]

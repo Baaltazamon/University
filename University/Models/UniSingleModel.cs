@@ -15,5 +15,6 @@ namespace University.Models
 		public List<Discipline> Disciplines { get; set; }
 		public List<DisciplineEducationProgram> DisciplinesEducations { get; set; }
 		public List<PassingScore> PassingScores { get; set; }
+		public List<Feedback> Feedbacks { get; set; }
 	}
 }
